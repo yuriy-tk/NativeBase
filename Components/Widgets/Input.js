@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import bootstrap from '../Styles/bootstrap';
 import computeProps from '../../Utils/computeProps';
 
-export default class Input extends NativeBaseComponent {
+export default class InputNB extends NativeBaseComponent {
 
 	getInitialStyle() {
 	    return {

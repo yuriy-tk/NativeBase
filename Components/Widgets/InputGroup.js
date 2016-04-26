@@ -3,7 +3,7 @@
 
 import React, {Text, View, TextInput, PixelRatio } from 'react-native';
 import NativeBaseComponent from '../Base/NativeBaseComponent';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from './Icon';
 import _ from 'lodash';
 import computeProps from '../../Utils/computeProps';
 import Input from './Input';
@@ -59,18 +59,22 @@ export default class InputGroup extends NativeBaseComponent {
 	        	borderRadius: 30,
 	        	margin: 15,
 	        	marginTop: 5
+	        },
+	        inputIcon: {
+	        	color: 'black',
+	        	fontSize: 27
 	        }
 	    }
 	}
 
-	prepareRootProps() {
+	prepareRootProps(child) {
 
 	    var type = {
-	    	paddingLeft:  (this.props.borderType === 'rounded' && !this.props.children.type == Icon) ? 15 : 
-			(this.props.children.type == Icon ) ? this.getTheme().inputPaddingLeftIcon : 10
+	    	paddingLeft:  (child.props.borderType === 'rounded' && !child.props.children) ? 15 : 
+			(child.props.children && child.props.children.type == Icon ) ? this.getTheme().inputPaddingLeftIcon : 10
 	    }
 
-	    var defaultStyle = (this.props.borderType === 'regular') ? this.getInitialStyle().bordered : (this.props.borderType === 'rounded') ? this.getInitialStyle().rounded : this.getInitialStyle().underline;
+	    var defaultStyle = (child.props.borderType === 'regular') ? this.getInitialStyle().bordered : (child.props.borderType === 'rounded') ? this.getInitialStyle().rounded : this.getInitialStyle().underline;
 
 	    type = _.merge(type, defaultStyle);
 	  
@@ -82,60 +86,51 @@ export default class InputGroup extends NativeBaseComponent {
 
 	    //console.log("input group style", computeProps(this.props, defaultProps));
 
-	    return computeProps(this.props, defaultProps);
+	    return computeProps(child.props, defaultProps);
 
 	}
 
-	renderIcon() {
-		if(!Array.isArray(this.props.children) && this.props.children.type == Icon)
-			return this.props.children;
+	getChildProps(child) {
+        var defaultProps = {};
+        if(child.type == Icon) {
+            defaultProps = {
+                style: this.getInitialStyle().inputIcon
+            }
+        }
 
-		else {
-			var iconRender =  _.find(this.props.children, function(item) {
-	            if(item && item.type == Icon) {
-	                return true;
-	            }
-	        });
-			return <Text style={{ alignSelf: 'center'}}>{iconRender}</Text>
-		}
+        return computeProps(child.props, defaultProps);
+    } 
+
+	renderIcon(child) {
+		
+		return <Text style={{ alignSelf: 'center'}}>{React.cloneElement(child, this.getChildProps(child))}</Text>
 	}
 
 
-	renderInput() {
-		if(!Array.isArray(this.props.children) && this.props.children.type == undefined) {
-			var inputProps = {};
+	renderInput(child) {
 
-	        inputProps = computeProps(this.props, this.props.children.props);
+	        return <Input {...child.props}/> 
+	}
 
-	        return <Input {...inputProps}/> 
-		}
+	renderChildren() {
+		var newChildren = React.Children.map(this.props.children, (child) => {
+          var newChild = React.cloneElement(child, child.props);
+          
+          	return <View {...this.prepareRootProps(newChild)} >   
 
-		else {
-			var inp =  _.find(this.props.children, function(item) {
-	            if(item && item.type == undefined) {
-	                return true;
-	            }
-	        });
+		              	{newChild.props.children && this.renderIcon(newChild.props.children)}
+		              	{this.renderInput(newChild)}
+		          	</View> 
+        });
+        console.log(newChildren);
 
-			var inputProps = {};
-			
-			if(inp)
-	        	inputProps = computeProps(this.props, inp.props);
-	        else 
-	        	inputProps = this.props;
-
-	        return <Input {...inputProps}/> 
-		}
+        return newChildren;
 	}
 
 	render() {
-        return (
-           	<View {...this.prepareRootProps()} >   
-
-              	{this.renderIcon()}
-              	{this.renderInput()}
-          	</View>  
-        );
+        return (<View>
+        			{this.renderChildren()}
+        		</View>);
     }    
 
 }

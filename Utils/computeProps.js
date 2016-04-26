@@ -9,7 +9,9 @@ module.exports = function(incomingProps, defaultProps) {
     var computedProps = {};
     
     incomingProps = _.clone(incomingProps);
-    delete incomingProps.children;
+
+    if(incomingProps)
+        delete incomingProps.children;
 
     // console.log(defaultProps, incomingProps);
 
@@ -19,7 +21,7 @@ module.exports = function(incomingProps, defaultProps) {
         computedProps = defaultProps;
 
     // Pass the merged Style Object instead
-    if(incomingProps.style) {
+    if(incomingProps && incomingProps.style) {
 
         if(typeof incomingProps.style == 'number') {
             var incomingPropsStyle = StyleSheetRegistry.getStyleByID(incomingProps.style);
@@ -34,7 +36,7 @@ module.exports = function(incomingProps, defaultProps) {
 
     // console.log("computedProps ", computedProps);
     
-    return computedProps;
+    return incomingProps ? computedProps : defaultProps;
 
 
 }

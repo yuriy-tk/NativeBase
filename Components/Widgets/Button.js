@@ -6,10 +6,11 @@ import NativeBaseComponent from '../Base/NativeBaseComponent';
 import button from '../Styles/button';
 import _ from 'lodash';
 import computeProps from '../../Utils/computeProps';
-import Icon from 'react-native-vector-icons/Ionicons';
+import Icon from './Icon';
+import Button from './Button';
 
 
-export default class Button extends NativeBaseComponent {
+export default class ButtonNB extends NativeBaseComponent {
 
     getInitialStyle() {
         return {
@@ -55,7 +56,7 @@ export default class Button extends NativeBaseComponent {
 
     }
 
-    getTextStyle() {
+    getTextStyle(child) {
       var mergedStyle = {};
 
       var btnType = {
@@ -69,8 +70,12 @@ export default class Button extends NativeBaseComponent {
         lineHeight: (this.props.large) ? 32 : (this.props.small) ? 15 : 22
       }
 
-      var  addedBtnProps = _.merge(this.getInitialStyle().buttonText,btnType);
-      return _.merge(mergedStyle, addedBtnProps, this.props.textStyle);
+      if(child && child.type == Button) {
+        btnType.fontSize += btnType.fontSize / 2;
+        btnType.lineHeight += btnType.lineHeight / 2;
+      }
+
+      return _.merge(mergedStyle, btnType, this.props.textStyle);
     }
 
     renderChildren() {
@@ -85,7 +90,7 @@ export default class Button extends NativeBaseComponent {
           return  <TouchableOpacity {...this.prepareRootProps()}  >
                     <Text style={this.getTextStyle()}>{this.props.children[0]}</Text>
                     <Text>
-                      {this.props.children[1]}
+                      {React.cloneElement(this.props.children[1], computeProps(this.props.children[1].props, {style: this.getTextStyle(this.props.children[1])}))}
                     </Text>
                   </TouchableOpacity> 
 
