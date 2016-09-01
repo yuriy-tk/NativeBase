@@ -15,41 +15,53 @@ export default class CardSwiper extends NativeBaseComponent {
         super(props);
         this.state = {
             pan: new Animated.ValueXY(),
-            selectedItem : this.props.dataSource[0],
-            selectedItem2 : this.props.dataSource[1],
+            selectedItem : undefined,
+            selectedItem2 : undefined,
             elevation1 : 3,
             elevation2: 2
         }
     }
 
+    findNextIndexes() {
+      let currentIndex = this.props.dataSource.indexOf(this.state.selectedItem);
+      let newIdx = currentIndex + 1;
+      let newIdx2 = currentIndex + 2;
+      console.log(currentIndex, newIdx, newIdx2);
 
-    goToPrevious() {
-        let currentPersonIdx = this.props.dataSource.indexOf(this.state.selectedItem);
-        let newIdx = currentPersonIdx - 1;
-        let newIdx2 = currentPersonIdx - 2;
-        let that = this;
-        setTimeout(function () {
-            that.setState({
-                selectedItem: that.props.dataSource[newIdx < 0 ? that.props.dataSource.length - 1 : newIdx],
-                selectedItem2: that.props.dataSource[newIdx2 < 0 ? that.props.dataSource.length - 2 : newIdx2]
-            });
-        }, 100);
+      if(newIdx2 > this.props.dataSource.length - 1 && newIdx === this.props.dataSource.length - 1) {
+        console.log("return", newIdx, 0);
+        return [newIdx, 0];
+      } else if (newIdx > this.props.dataSource.length - 1) {
+        console.log("return", 0, 1);
+        return [0, 1];
+      } else {
+        console.log("return", newIdx, newIdx2);
+        return [newIdx, newIdx2];
+      }
     }
 
-    goToNext() {
-        let currentPersonIdx = this.props.dataSource.indexOf(this.state.selectedItem);
-        let newIdx = currentPersonIdx + 1;
-        let newIdx2 = currentPersonIdx + 2;
-        let that = this;
-        setTimeout(function () {
-            that.setState({
-                selectedItem: that.props.dataSource[newIdx > that.props.dataSource.length - 1 ? 0 : newIdx],
-                selectedItem2: that.props.dataSource[newIdx2 > that.props.dataSource.length - 2 ? 0 : newIdx2]
-            });
+    selectNext() {
+        let nextIndexes = this.findNextIndexes();
+        setTimeout( () => {
+          this.setState({
+              selectedItem: this.props.dataSource[nextIndexes[0]]
+          });
+          setTimeout( () => {
+              this.setState({
+                  // selectedItem: this.props.dataSource[newIdx > this.props.dataSource.length - 1 ? 0 : newIdx],
+                  selectedItem2: this.props.dataSource[nextIndexes[1]]
+              });
+              console.log(this.state);
+          }, 500);
         }, 100);
+
     }
 
     componentWillMount() {
+      this.setState({
+        selectedItem : this.props.dataSource[0],
+        selectedItem2 : this.props.dataSource[1]
+      });
         this._panResponder = PanResponder.create({
             onMoveShouldSetResponderCapture: () => true,
             onMoveShouldSetPanResponderCapture: () => true,
@@ -60,9 +72,11 @@ export default class CardSwiper extends NativeBaseComponent {
                 this.state.pan.setValue({x: 0, y: 0});
             },
 
-            onPanResponderMove: Animated.event([
-                null, {dx: this.state.pan.x, dy: this.state.pan.y},
-            ]),
+            onPanResponderMove: (e, gestureState) => {
+              Animated.event([
+                  null, {dx: this.state.pan.x, dy: this.state.pan.y},
+              ])(e, gestureState)
+            },
 
             onPanResponderRelease: (e, {vx, vy}) => {
                 console.log('stopeed');
@@ -71,21 +85,23 @@ export default class CardSwiper extends NativeBaseComponent {
 
                 if (vx >= 0) {
                     velocity = clamp(vx, 5, 7);
-                    console.log(velocity);
+                    // console.log(velocity);
                 } else if (vx < 0) {
                     velocity = clamp(vx * -1, 5, 7) * -1;
-                    console.log(velocity);
+                    // console.log(velocity);
                 }
 
                 if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
-                    console.log('success');
+                    // console.log('success');
+                    this.selectNext();
 
                     if (velocity>0) {
-                        // this.props.onSwipeRight();
-                        this.goToNext();
+                      if(this.props.onSwipeRight)
+                        this.props.onSwipeRight();
+
                     } else {
-                        // this.props.onSwipeLeft();
-                        this.goToPrevious();
+                      if(this.props.onSwipeLeft)
+                        this.props.onSwipeLeft();
                     }
 
                     Animated.decay(this.state.pan, {
@@ -113,23 +129,24 @@ export default class CardSwiper extends NativeBaseComponent {
         let [translateX, translateY] = [pan.x, pan.y];
 
         let rotate = pan.x.interpolate({inputRange: [-300, 0, 300], outputRange: ['-15deg', '0deg', '15deg']});
-        let opacity = pan.x.interpolate({inputRange: [-320, 0, 320], outputRange: [0.9, 1, 0.9]})
+        let opacity = pan.x.interpolate({inputRange: [-320, 0, 320], outputRange: [0.5, 1, 0.5]})
         // let scale = enter;
 
         let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}], opacity};
 
         return(
-            <View style={this.props.style}>{(this.state.selectedItem)===undefined ? (<View />) :
-                (<View>
-                    <Animated.View style={{elevation: this.state.elevation2}}>
+            <View style={this.props.style}>
+              <View>
+                {(this.state.selectedItem2)===undefined ? (<View />) :
+                    (<View style={{elevation: this.state.elevation2}}>
                         {this.props.renderItem(this.state.selectedItem2)}
-                    </Animated.View>
-                    <Animated.View style={[ animatedCardStyles, {marginTop: (Platform.OS=='android') ? -410 : -413, elevation: this.state.elevation1}] } {...this._panResponder.panHandlers} >
+                    </View>)}
+                {(this.state.selectedItem)===undefined ? (<View />) :
+                    (<Animated.View style={[ animatedCardStyles, {marginTop: (Platform.OS=='android') ? -410 : -413, elevation: this.state.elevation1}] } {...this._panResponder.panHandlers} >
                         {this.props.renderItem(this.state.selectedItem)}
-                    </Animated.View>
-                    </View>
-                )
-            }
+                    </Animated.View>)}
+              </View>
+
             </View>
         );
     }
