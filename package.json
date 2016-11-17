@@ -13,12 +13,13 @@
     "packager",
     "rnpm"
   ],
-  "version": "0.5.13",
+  "version": "6.0.0-beta",
   "private": false,
   "dependencies": {
     "clamp": "^1.0.1",
     "color": "~0.11.1",
     "lodash": "~4.11.1",
+    "@shoutem/theme": "^0.8.5",
     "react-native-checkbox": "~1.0.8",
     "react-native-easy-grid": "0.1.5",
     "react-native-keyboard-aware-scroll-view": "0.2.0",
