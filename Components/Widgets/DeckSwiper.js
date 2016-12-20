@@ -17,12 +17,17 @@ export default class CardSwiper extends NativeBaseComponent {
             pan: new Animated.ValueXY(),
             pan2: new Animated.ValueXY(),
             enter: new Animated.Value(0.8),
-            selectedItem : this.props.dataSource[0],
-            selectedItem2 : this.props.dataSource[1],
+            selectedItem : {},
+            selectedItem2 : {},
             card1Top: true,
             card2Top: false,
             fadeAnim: new Animated.Value(0.8)
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+      // console.log(nextProps, '!!!!!!!nextProps : DeckSwiper!!!!!!!');
+      this.setState({ selectedItem: nextProps.dataSource[0], selectedItem2: nextProps.dataSource[1] });
     }
 
     getInitialStyle() {
@@ -52,17 +57,18 @@ export default class CardSwiper extends NativeBaseComponent {
     }
 
     selectNext() {
-        let nextIndexes = this.findNextIndexes();
-        setTimeout( () => {
-            this.setState({
-                selectedItem: this.props.dataSource[nextIndexes[0]]
-            });
-            setTimeout( () => {
-                this.setState({
-                    selectedItem2: this.props.dataSource[nextIndexes[1]]
-                });
-            }, 350);
-        }, 50);
+      console.log('selectNext');
+        // let nextIndexes = this.findNextIndexes();
+        // setTimeout( () => {
+        //     this.setState({
+        //         selectedItem: this.props.dataSource[nextIndexes[0]]
+        //     });
+        //     setTimeout( () => {
+        //         this.setState({
+        //             selectedItem2: this.props.dataSource[nextIndexes[1]]
+        //         });
+        //     }, 350);
+        // }, 50);
     }
 
 
@@ -83,6 +89,7 @@ export default class CardSwiper extends NativeBaseComponent {
             deceleration: 0.98
         }).start(this._resetState.bind(this))
       }, 300);
+
     }
 
     swipeLeft() {
@@ -208,7 +215,7 @@ export default class CardSwiper extends NativeBaseComponent {
 
     render() {
 
-
+      // console.log(this.state, '&&&DeckSwiper : this.state&&&&&');
         return(
             <View ref={c => this._root = c} style={{position: 'relative', flexDirection: 'column'}}>{(this.state.selectedItem)===undefined ? (<View />) :
                 (<View>
@@ -232,5 +239,4 @@ export default class CardSwiper extends NativeBaseComponent {
             </View>
         );
     }
-
 }
