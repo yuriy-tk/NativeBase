@@ -154,20 +154,29 @@ export default class CardSwiper extends NativeBaseComponent {
               this.props.onSwiping(null);
               var velocity;
 
-              if (vx >= 0) {
+              if (vx > 0) {
+                // console.log(vx, '^^^^^vx : if^^^^^^');
                   velocity = clamp(vx, 4.5, 10);
               } else if (vx < 0) {
+                // console.log(vx, '%%%%%%vx : elseif^^^^^^');
                   velocity = clamp(vx * -1, 4.5, 10) * -1;
+              } else {
+                // console.log(vx, '$$$$$$$vx : else$$$$$');
+                velocity = 0;
               }
 
               if (Math.abs(this.state.pan.x._value) > SWIPE_THRESHOLD) {
-
+                // console.log(Math.abs(this.state.pan.x._value));
                   if (velocity>0) {
+                    // console.log(velocity, '******if()*****');
                       (this.props.onSwipeRight) ? this.props.onSwipeRight() : undefined;
                       this.selectNext('Like');
-                  } else {
+                  } else if(velocity < 0) {
+                    // console.log(velocity, '&&&&elseif()&&&&&&');
                       (this.props.onSwipeLeft) ? this.props.onSwipeLeft() : undefined;
                       this.selectNext('Dislike');
+                  } else {
+                    // console.log(velocity, 'else');
                   }
 
                   Animated.decay(this.state.pan, {
@@ -175,6 +184,7 @@ export default class CardSwiper extends NativeBaseComponent {
                       deceleration: 0.98
                   }).start(this._resetState.bind(this))
               } else {
+                // console.log('else');
                   Animated.spring(this.state.pan, {
                       toValue: {x: 0, y: 0},
                       friction: 4

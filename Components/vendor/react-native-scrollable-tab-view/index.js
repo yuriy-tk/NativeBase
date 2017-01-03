@@ -18,12 +18,14 @@ export default class ScrollableTabView extends NativeBaseComponent {
   static defaultProps = {
     ...NativeBaseComponent.defaultProps,
     tabBarPosition: 'top',
+    // edgeHitWidth: this.state.currentPage === 1 ? 10 : deviceWidth,
     springTension: 50,
     springFriction: 10
   };
   constructor(props) {
     super(props);
     var currentPage = this.props.initialPage || 0;
+    // var scrollingThreshold = currentPage === 1 ? 25 : deviceWidth;
     this.state = {
       currentPage: currentPage,
       scrollValue: new Animated.Value(currentPage),
@@ -32,23 +34,30 @@ export default class ScrollableTabView extends NativeBaseComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    // console.log(nextProps.letPhotocardScrollCompletely);
     if (nextProps.letPhotocardScrollCompletely) {
       this.setState({
         edgeHitWidth: deviceWidth
+      });
+    } else {
+      this.setState({
+        edgeHitWidth: 20
       });
     }
   }
 
   componentWillMount() {
     var release = (e, gestureState) => {
-      var relativeGestureDistance = gestureState.dx / deviceWidth,
+      var relativeGestureDistance = gestureState.dx / (deviceWidth),
           lastPageIndex = this.props.children.length - 1,
           vx = gestureState.vx,
           newPage = this.state.currentPage;
 
-      if (relativeGestureDistance < -0.5 || (relativeGestureDistance < 0 && vx <= -0.5)) {
+      if (relativeGestureDistance < -0.30 || (relativeGestureDistance < 0 && vx <= -0.5)) {
+        // console.log(deviceWidth, '&&&&&if&&&&&', relativeGestureDistance);
         newPage = newPage + 1;
-      } else if (relativeGestureDistance > 0.5 || (relativeGestureDistance > 0 && vx >= 0.5)) {
+      } else if (relativeGestureDistance > 0.30 || (relativeGestureDistance > 0 && vx >= 0.5)) {
+        // console.log(deviceWidth, '&&&&&else&&&&&', relativeGestureDistance);
         newPage = newPage - 1;
       }
 
@@ -90,7 +99,7 @@ export default class ScrollableTabView extends NativeBaseComponent {
     this.props.onChangeTab && this.props.onChangeTab({
       i: pageNumber, ref: this.props.children[pageNumber]
     });
-
+    // console.log(pageNumber, '***********');
     if (this.props.letPhotocardScrollCompletely) {
       this.setState({
         edgeHitWidth: deviceWidth
@@ -124,6 +133,7 @@ export default class ScrollableTabView extends NativeBaseComponent {
   }
 
   render() {
+    // console.log(this.props.letPhotocardScrollCompletely, '++++=+=+=+=+==+', this.state.edgeHitWidth);
 
     var sceneContainerStyle = {
       width: deviceWidth * this.props.children.length,
