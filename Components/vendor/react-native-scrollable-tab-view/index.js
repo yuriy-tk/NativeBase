@@ -18,7 +18,6 @@ export default class ScrollableTabView extends NativeBaseComponent {
   static defaultProps = {
     ...NativeBaseComponent.defaultProps,
     tabBarPosition: 'top',
-    edgeHitWidth: 30,
     springTension: 50,
     springFriction: 10
   };
@@ -27,7 +26,16 @@ export default class ScrollableTabView extends NativeBaseComponent {
     var currentPage = this.props.initialPage || 0;
     this.state = {
       currentPage: currentPage,
-      scrollValue: new Animated.Value(currentPage)
+      scrollValue: new Animated.Value(currentPage),
+      edgeHitWidth: 20
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.letPhotocardScrollCompletely) {
+      this.setState({
+        edgeHitWidth: deviceWidth
+      });
     }
   }
 
@@ -52,8 +60,8 @@ export default class ScrollableTabView extends NativeBaseComponent {
       // Claim responder if it's a horizontal pan
       onMoveShouldSetPanResponder: (e, gestureState) => {
         if (Math.abs(gestureState.dx) > Math.abs(gestureState.dy)) {
-          if ((gestureState.moveX <= this.props.edgeHitWidth ||
-              gestureState.moveX >= deviceWidth - this.props.edgeHitWidth) &&
+          if ((gestureState.moveX <= this.state.edgeHitWidth ||
+              gestureState.moveX >= deviceWidth - this.state.edgeHitWidth) &&
                 this.props.locked !== true) {
             this.props.hasTouch && this.props.hasTouch(true);
             return true;
@@ -83,6 +91,21 @@ export default class ScrollableTabView extends NativeBaseComponent {
       i: pageNumber, ref: this.props.children[pageNumber]
     });
 
+    if (this.props.letPhotocardScrollCompletely) {
+      this.setState({
+        edgeHitWidth: deviceWidth
+      });
+    } else {
+      if (pageNumber === 1) {
+        this.setState({
+          edgeHitWidth: 20
+        });
+      } else {
+        this.setState({
+          edgeHitWidth: deviceWidth
+        });
+      }
+    }
     this.setState({
       currentPage: pageNumber
     });
@@ -101,6 +124,7 @@ export default class ScrollableTabView extends NativeBaseComponent {
   }
 
   render() {
+
     var sceneContainerStyle = {
       width: deviceWidth * this.props.children.length,
       flex: 1,
