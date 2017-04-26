@@ -7,7 +7,7 @@ import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 class Switch extends Component {
   render() {
     return (
-      <SwitchNB ref={c => this._root = c} {...this.props} />
+      <SwitchNB ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }

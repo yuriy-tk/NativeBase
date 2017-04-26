@@ -12,7 +12,7 @@ class Text extends NativeBaseComponent {
 
   render() {
     return (
-      <TextRN ref={c => this._root = c} {...this.props}>{this.props.children}</TextRN>
+      <TextRN ref={(c) => { this._root = c; }} {...this.props}>{this.props.children}</TextRN>
     );
   }
 

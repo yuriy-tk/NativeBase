@@ -9,7 +9,6 @@ import _ from 'lodash';
 import { Icon } from './Icon';
 import { Button } from '../../basic/Button';
 import { Badge } from '../../basic/Badge';
-import { IconNB } from '../../basic/IconNB';
 import mapPropsToStyleNames from '../../Utils/mapPropsToStyleNames';
 import NativeBaseComponent from '../Base/NativeBaseComponent';
 import { Text } from './Text';

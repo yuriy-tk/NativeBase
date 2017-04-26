@@ -1,4 +1,4 @@
-
+import { connectStyle } from 'native-base-shoutem-theme';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Left } from '../basic/Left';
@@ -7,14 +7,13 @@ import { Right } from '../basic/Right';
 import { Header } from '../basic/Header';
 import { Button } from '../basic/Button';
 import { Title } from '../basic/Title';
-import { connectStyle } from 'native-base-shoutem-theme';
 import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 
 class SHeader extends Component {
 
   render() {
     return (
-      <Header ref={c => this._root = c} {...this.props}>
+      <Header ref={(c) => { this._root = c; }} {...this.props}>
         <Left>
           {(this.props.leftButton) ? <Button
             transparent onPress={this.props.leftButtonPress}

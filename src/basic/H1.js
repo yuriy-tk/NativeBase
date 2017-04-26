@@ -7,7 +7,7 @@ import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 class H1 extends Component {
   render() {
     return (
-      <Text ref={c => this._root = c} {...this.props} />
+      <Text ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }

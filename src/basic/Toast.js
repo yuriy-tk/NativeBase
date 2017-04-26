@@ -10,7 +10,7 @@ import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 class Toast extends Component {
   render() {
     return (
-      <View ref={c => this._root = c} {...this.props}></View>
+      <View ref={(c) => { this._root = c; }} {...this.props}></View>
     );
   }
 }

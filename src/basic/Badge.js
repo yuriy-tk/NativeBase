@@ -10,7 +10,7 @@ class Badge extends Component {
 
   render() {
     return (
-      <View ref={c => this._root = c} {...this.props}>
+      <View ref={(c) => { this._root = c; }} {...this.props}>
         {this.props.children}
       </View>
     );

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connectStyle } from 'native-base-shoutem-theme';
 
 import variables from '../theme/variables/platform';
-import { connectStyle } from 'native-base-shoutem-theme';
 import computeProps from '../Utils/computeProps';
 import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 
@@ -26,7 +26,7 @@ class InputGroup extends Component {
   }
   render() {
     return (
-      <View ref={c => this._root = c} {...this.prepareRootProps()}>
+      <View ref={(c) => { this._root = c; }} {...this.prepareRootProps()}>
         {this.props.children}
       </View>
     );

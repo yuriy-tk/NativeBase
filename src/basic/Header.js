@@ -1,10 +1,8 @@
-
 import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
 import { connectStyle } from 'native-base-shoutem-theme';
 import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 import variable from '../theme/variables/platform';
-import _ from 'lodash';
 
 class Header extends Component {
   static contextTypes = {
@@ -18,9 +16,14 @@ class Header extends Component {
     return (
       <View>
         <StatusBar
-          backgroundColor={(this.props.androidStatusBarColor) ? this.props.androidStatusBarColor : variables.statusBarColor}
-          barStyle={(this.props.iosBarStyle) ? this.props.iosBarStyle : (platformStyle === 'material') ? 'light-content' : variables.iosStatusbar } />
-          <View ref={c => this._root = c} {...this.props} />
+          backgroundColor={
+            (this.props.androidStatusBarColor) ?
+            this.props.androidStatusBarColor
+            :
+            variables.statusBarColor}
+          barStyle={(this.props.iosBarStyle) ? this.props.iosBarStyle : (platformStyle === 'material') ? 'light-content' : variables.iosStatusbar }
+        />
+        <View ref={(c) => { this._root = c; }} {...this.props} />
       </View>
     );
   }

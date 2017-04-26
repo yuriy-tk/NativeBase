@@ -40,7 +40,7 @@ import { FooterTab } from './basic/FooterTab';
 import { Form } from './basic/Form';
 import { ToastContainer } from './basic/ToastContainer';
 import { ActionSheetContainer } from './basic/Actionsheet';
-import { PickerNB } from './basic/Picker';
+import { PickerNB } from './basic/PickerItem';
 import { List } from './basic/List';
 import { ListItem } from './basic/ListItem';
 import { Separator } from './basic/Separator';

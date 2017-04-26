@@ -1,9 +1,5 @@
 import tweenState from 'react-tween-state';
-import NativeButton from './NativeButton';
-import styles from './styles';
 import { connectStyle } from 'native-base-shoutem-theme';
-import mapPropsToStyleNames from '../../Utils/mapPropsToStyleNames';
-
 import React, {
   Component,
   PropTypes,
@@ -11,23 +7,14 @@ import React, {
 
 import {
   PanResponder,
-  TouchableHighlight,
-  StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
-export default class SwipeoutBtn extends Component {
+import NativeButton from './NativeButton';
+import styles from './styles';
+import mapPropsToStyleNames from '../../Utils/mapPropsToStyleNames';
 
-  propTypes: {
-    backgroundColor: PropTypes.string,
-    color: PropTypes.string,
-    component: PropTypes.node,
-    onPress: PropTypes.func,
-    text: PropTypes.string,
-    type: PropTypes.string,
-    underlayColor: PropTypes.string,
-  }
+export default class SwipeoutBtn extends Component {
 
   static get defaultProps() {
     return {
@@ -44,11 +31,20 @@ export default class SwipeoutBtn extends Component {
       width: 0,
     };
   }
+  propTypes: {
+    backgroundColor: PropTypes.string,
+    color: PropTypes.string,
+    component: PropTypes.node,
+    onPress: PropTypes.func,
+    text: PropTypes.string,
+    type: PropTypes.string,
+    underlayColor: PropTypes.string,
+  }
 
   render() {
-    var btn = this.props;
+    const btn = this.props;
 
-    var styleSwipeoutBtn = [styles.swipeoutBtn];
+    const styleSwipeoutBtn = [styles.swipeoutBtn];
 
     //  apply "type" styles (delete || primary || secondary)
     if (btn.type === 'delete') styleSwipeoutBtn.push(styles.colorDelete);
@@ -63,7 +59,7 @@ export default class SwipeoutBtn extends Component {
       width: btn.width,
     }]);
 
-    var styleSwipeoutBtnComponent = [];
+    const styleSwipeoutBtnComponent = [];
 
     //  set button dimensions
     styleSwipeoutBtnComponent.push([{
@@ -71,19 +67,20 @@ export default class SwipeoutBtn extends Component {
       width: btn.width,
     }]);
 
-    var styleSwipeoutBtnText = [styles.swipeoutBtnText];
+    const styleSwipeoutBtnText = [styles.swipeoutBtnText];
 
     //  apply text color
     if (btn.color) styleSwipeoutBtnText.push([{ color: btn.color }]);
 
-    return  (
+    return (
       <NativeButton
         onPress={this.props.onPress}
         style={styles.swipeoutBtnTouchable}
         underlayColor={this.props.underlayColor}
         disabled={this.props.disabled}
         style={styleSwipeoutBtn}
-        textStyle={styleSwipeoutBtnText}>
+        textStyle={styleSwipeoutBtnText}
+      >
         {
           (btn.component ?
             <View style={styleSwipeoutBtnComponent}>{btn.component}</View>
@@ -97,8 +94,6 @@ export default class SwipeoutBtn extends Component {
 }
 
 const Swipeout = React.createClass({
-  mixins: [tweenState.Mixin],
-
   propTypes: {
     autoClose: PropTypes.bool,
     backgroundColor: PropTypes.string,
@@ -110,8 +105,9 @@ const Swipeout = React.createClass({
     style: View.propTypes.style,
     sensitivity: PropTypes.number,
   },
+  mixins: [tweenState.Mixin],
 
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       rowID: -1,
       sectionID: -1,
@@ -119,7 +115,7 @@ const Swipeout = React.createClass({
     };
   },
 
-  getInitialState: function() {
+  getInitialState() {
     return {
       autoClose: this.props.autoClose || false,
       btnWidth: 0,
@@ -135,7 +131,7 @@ const Swipeout = React.createClass({
     };
   },
 
-  componentWillMount: function() {
+  componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (event, gestureState) => true,
       onMoveShouldSetPanResponder: (event, gestureState) =>
@@ -149,35 +145,35 @@ const Swipeout = React.createClass({
     });
   },
 
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.close) this._close();
   },
 
-  _handlePanResponderGrant: function(e: Object, gestureState: Object) {
-    if(this.props.onOpen){
+  _handlePanResponderGrant(e: Object, gestureState: Object) {
+    if (this.props.onOpen) {
       this.props.onOpen(this.props.sectionID, this.props.rowID);
     }
     this.refs.swipeoutContent.measure((ox, oy, width, height) => {
       this.setState({
-        btnWidth: (width/5),
-        btnsLeftWidth: this.props.left ? (width/5)*this.props.left.length : 0,
-        btnsRightWidth: this.props.right ? (width/5)*this.props.right.length : 0,
+        btnWidth: (width / 5),
+        btnsLeftWidth: this.props.left ? (width / 5) * this.props.left.length : 0,
+        btnsRightWidth: this.props.right ? (width / 5) * this.props.right.length : 0,
         swiping: true,
         timeStart: (new Date()).getTime(),
       });
     });
   },
 
-  _handlePanResponderMove: function(e: Object, gestureState: Object) {
-    var posX = gestureState.dx;
-    var posY = gestureState.dy;
-    var leftWidth = this.state.btnsLeftWidth;
-    var rightWidth = this.state.btnsRightWidth;
-    if (this.state.openedRight) var posX = gestureState.dx - rightWidth;
-    else if (this.state.openedLeft) var posX = gestureState.dx + leftWidth;
+  _handlePanResponderMove(e: Object, gestureState: Object) {
+    let posX = gestureState.dx;
+    const posY = gestureState.dy;
+    const leftWidth = this.state.btnsLeftWidth;
+    const rightWidth = this.state.btnsRightWidth;
+    if (this.state.openedRight) posX = gestureState.dx - rightWidth;
+    else if (this.state.openedLeft) posX = gestureState.dx + leftWidth;
 
     //  prevent scroll if moveX is true
-    var moveX = Math.abs(posX) > Math.abs(posY);
+    const moveX = Math.abs(posX) > Math.abs(posY);
     if (this.props.scroll) {
       if (moveX) this.props.scroll(false);
       else this.props.scroll(true);
@@ -189,29 +185,29 @@ const Swipeout = React.createClass({
     }
   },
 
-  _handlePanResponderEnd: function(e: Object, gestureState: Object) {
-    var posX = gestureState.dx;
-    var contentPos = this.state.contentPos;
-    var contentWidth = this.state.contentWidth;
-    var btnsLeftWidth = this.state.btnsLeftWidth;
-    var btnsRightWidth = this.state.btnsRightWidth;
+  _handlePanResponderEnd(e: Object, gestureState: Object) {
+    const posX = gestureState.dx;
+    const contentPos = this.state.contentPos;
+    const contentWidth = this.state.contentWidth;
+    const btnsLeftWidth = this.state.btnsLeftWidth;
+    const btnsRightWidth = this.state.btnsRightWidth;
 
     //  minimum threshold to open swipeout
-    var openX = contentWidth*0.33;
+    const openX = contentWidth * 0.33;
 
     //  should open swipeout
-    var openLeft = posX > openX || posX > btnsLeftWidth/2;
-    var openRight = posX < -openX || posX < -btnsRightWidth/2;
+    let openLeft = posX > openX || posX > btnsLeftWidth / 2;
+    let openRight = posX < -openX || posX < -btnsRightWidth / 2;
 
     //  account for open swipeouts
-    if (this.state.openedRight) var openRight = posX-openX < -openX;
-    if (this.state.openedLeft) var openLeft = posX+openX > openX;
+    if (this.state.openedRight) openRight = posX - openX < -openX;
+    if (this.state.openedLeft) openLeft = posX + openX > openX;
 
     //  reveal swipeout on quick swipe
-    var timeDiff = (new Date()).getTime() - this.state.timeStart < 200;
+    const timeDiff = (new Date()).getTime() - this.state.timeStart < 200;
     if (timeDiff) {
-      var openRight = posX < -openX/10 && !this.state.openedLeft;
-      var openLeft = posX > openX/10 && !this.state.openedRight;
+      openRight = posX < -openX / 10 && !this.state.openedLeft;
+      openLeft = posX > openX / 10 && !this.state.openedRight;
     }
 
     if (this.state.swiping) {
@@ -223,8 +219,7 @@ const Swipeout = React.createClass({
         // open swipeout left
         this._tweenContent('contentPos', btnsLeftWidth);
         this.setState({ contentPos: btnsLeftWidth, openedLeft: true, openedRight: false });
-      }
-      else {
+      } else {
         // close swipeout
         this._tweenContent('contentPos', 0);
         this.setState({ contentPos: 0, openedLeft: false, openedRight: false });
@@ -235,28 +230,28 @@ const Swipeout = React.createClass({
     if (this.props.scroll) this.props.scroll(true);
   },
 
-  _tweenContent: function(state, endValue) {
+  _tweenContent(state, endValue) {
     this.tweenState(state, {
       easing: tweenState.easingTypes.easeInOutQuad,
-      duration: endValue === 0 ? this.state.tweenDuration*1.5 : this.state.tweenDuration,
-      endValue: endValue,
+      duration: endValue === 0 ? this.state.tweenDuration * 1.5 : this.state.tweenDuration,
+      endValue,
     });
   },
 
-  _rubberBandEasing: function(value, limit) {
+  _rubberBandEasing(value, limit) {
     if (value < 0 && value < limit) return limit - Math.pow(limit - value, 0.85);
     else if (value > 0 && value > limit) return limit + Math.pow(value - limit, 0.85);
     return value;
   },
 
   //  close swipeout on button press
-  _autoClose: function(btn) {
-    var onPress = btn.onPress;
+  _autoClose(btn) {
+    const onPress = btn.onPress;
     if (onPress) onPress();
     if (this.state.autoClose) this._close();
   },
 
-  _close: function() {
+  _close() {
     this._tweenContent('contentPos', 0);
     this.setState({
       openedRight: false,
@@ -264,48 +259,48 @@ const Swipeout = React.createClass({
     });
   },
 
-  render: function() {
-    var contentWidth = this.state.contentWidth;
-    var posX = this.getTweeningValue('contentPos');
+  render() {
+    const contentWidth = this.state.contentWidth;
+    const posX = this.getTweeningValue('contentPos');
 
-    var styleSwipeout = [styles.swipeout, this.props.style];
+    const styleSwipeout = [styles.swipeout, this.props.style];
     if (this.props.backgroundColor) {
       styleSwipeout.push([{ backgroundColor: this.props.backgroundColor }]);
     }
 
-    var limit = -this.state.btnsRightWidth;
-    if (posX > 0) var limit = this.state.btnsLeftWidth;
+    let limit = -this.state.btnsRightWidth;
+    if (posX > 0) limit = this.state.btnsLeftWidth;
 
-    var styleLeftPos = {
+    const styleLeftPos = {
       left: {
         left: 0,
         overflow: 'hidden',
-        width: Math.min(limit*(posX/limit), limit),
+        width: Math.min(limit * (posX / limit), limit),
       },
     };
-    var styleRightPos = {
+    const styleRightPos = {
       right: {
         left: Math.abs(contentWidth + Math.max(limit, posX)),
         right: 0,
       },
     };
-    var styleContentPos = {
+    const styleContentPos = {
       content: {
         left: this._rubberBandEasing(posX, limit),
       },
     };
 
-    var styleContent = [styles.swipeoutContent];
+    const styleContent = [styles.swipeoutContent];
     styleContent.push(styleContentPos.content);
 
-    var styleRight = [styles.swipeoutBtns];
+    const styleRight = [styles.swipeoutBtns];
     styleRight.push(styleRightPos.right);
 
-    var styleLeft = [styles.swipeoutBtns];
+    const styleLeft = [styles.swipeoutBtns];
     styleLeft.push(styleLeftPos.left);
 
-    var isRightVisible = posX < 0;
-    var isLeftVisible = posX > 0;
+    const isRightVisible = posX < 0;
+    const isLeftVisible = posX > 0;
 
     return (
       <View style={styleSwipeout}>
@@ -313,7 +308,8 @@ const Swipeout = React.createClass({
           ref="swipeoutContent"
           style={styleContent}
           onLayout={this._onLayout}
-          {...this._panResponder.panHandlers}>
+          {...this._panResponder.panHandlers}
+        >
           {this.props.children}
         </View>
         { this._renderButtons(this.props.right, isRightVisible, styleRight) }
@@ -322,43 +318,43 @@ const Swipeout = React.createClass({
     );
   },
 
-  _onLayout: function(event) {
-    var { width, height } = event.nativeEvent.layout;
+  _onLayout(event) {
+    const { width, height } = event.nativeEvent.layout;
     this.setState({
       contentWidth: width,
       contentHeight: height,
     });
   },
 
-  _renderButtons: function(buttons, isVisible, style) {
+  _renderButtons(buttons, isVisible, style) {
     if (buttons && isVisible) {
-      return( <View style={style}>
+      return (<View style={style}>
         { buttons.map(this._renderButton) }
       </View>);
-    } else {
-      return (
-        <View/>
-      );
     }
+    return (
+      <View />
+    );
   },
 
-  _renderButton: function(btn, i) {
+  _renderButton(btn, i) {
     return (
       <SwipeoutBtn
-          backgroundColor={btn.backgroundColor}
-          color={btn.color}
-          component={btn.component}
-          disabled={btn.disabled}
-          height={this.state.contentHeight}
-          key={i}
-          onPress={() => this._autoClose(btn)}
-          text={btn.text}
-          type={btn.type}
-          underlayColor={btn.underlayColor}
-          width={this.state.btnWidth}/>
-      );
-  }
-})
+        backgroundColor={btn.backgroundColor}
+        color={btn.color}
+        component={btn.component}
+        disabled={btn.disabled}
+        height={this.state.contentHeight}
+        key={i}
+        onPress={() => this._autoClose(btn)}
+        text={btn.text}
+        type={btn.type}
+        underlayColor={btn.underlayColor}
+        width={this.state.btnWidth}
+      />
+    );
+  },
+});
 
 Swipeout.NativeButton = NativeButton;
 Swipeout.SwipeoutButton = SwipeoutBtn;

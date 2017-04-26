@@ -12,7 +12,7 @@ import { Content } from './Widgets/Content';
 import { Button } from './Widgets/Button';
 import { Text } from './Widgets/Text';
 import { Switch } from '../basic/Switch';
-import { PickerNB as Picker } from '../basic/Picker';
+import { PickerNB as Picker } from '../basic/PickerItem';
 import { List } from './Widgets/List';
 import { ListItem } from './Widgets/ListItem';
 import { CardItem1 as CardItem } from './Widgets/CardItem';

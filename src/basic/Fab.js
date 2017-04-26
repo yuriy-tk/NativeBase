@@ -1,16 +1,12 @@
 /* @flow */
-
-
-import React, { Component } from 'react';
-import { Button } from './Button';
-import { Platform, Animated, TouchableOpacity } from 'react-native';
-// import View from './View';
-import { Icon } from './Icon';
-// import Badge from './Badge';
-import { IconNB } from './IconNB';
-// import Text from './Text';
 import _ from 'lodash';
+import { Platform, Animated, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
 import { connectStyle } from 'native-base-shoutem-theme';
+import { Button } from './Button';
+// import View from './View';
+// import Badge from './Badge';
+// import Text from './Text';
 import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 import computeProps from '../Utils/computeProps';
 
@@ -26,38 +22,6 @@ class Fab extends Component {
       buttons: undefined,
       active: false,
     };
-  }
-
-  fabTopValue(pos) {
-    if (pos === 'topLeft') {
-      return {
-        top: 20,
-        bottom: undefined,
-        left: 20,
-        right: undefined,
-      };
-    } else if (pos === 'bottomRight') {
-      return {
-        top: undefined,
-        bottom: (Platform.OS === 'ios') ? 20 : 40,
-        left: undefined,
-        right: 20,
-      };
-    } else if (pos === 'bottomLeft') {
-      return {
-        top: undefined,
-        bottom: (Platform.OS === 'ios') ? 20 : 40,
-        left: 20,
-        right: undefined,
-      };
-    } else if (pos === 'topRight') {
-      return {
-        top: 20,
-        bottom: undefined,
-        left: undefined,
-        right: 20,
-      };
-    }
   }
 
   fabOtherBtns(direction, i) {
@@ -157,6 +121,37 @@ class Fab extends Component {
     };
 
     return _.merge(this.getInitialStyle().buttonStyle, child.props.style, type);
+  }
+  fabTopValue(pos) {
+    if (pos === 'topLeft') {
+      return {
+        top: 20,
+        bottom: undefined,
+        left: 20,
+        right: undefined,
+      };
+    } else if (pos === 'bottomRight') {
+      return {
+        top: undefined,
+        bottom: (Platform.OS === 'ios') ? 20 : 40,
+        left: undefined,
+        right: 20,
+      };
+    } else if (pos === 'bottomLeft') {
+      return {
+        top: undefined,
+        bottom: (Platform.OS === 'ios') ? 20 : 40,
+        left: 20,
+        right: undefined,
+      };
+    } else if (pos === 'topRight') {
+      return {
+        top: 20,
+        bottom: undefined,
+        left: undefined,
+        right: 20,
+      };
+    }
   }
   prepareButtonProps(child) {
     const inp = _.clone(child.props);

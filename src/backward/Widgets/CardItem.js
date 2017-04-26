@@ -9,17 +9,17 @@ import computeProps from '../../Utils/computeProps';
 
 class CardItem1 extends NativeBaseComponent {
 
-    getInitialStyle() {
-        return {
-            listItem: {
-                flexDirection: (this.thumbnailPresent() || this.gravatarPresent() || this.iconPresent() || (this.notePresent() && this.ifShowCase())) ? 'row' : 'column',
-            },
-            fullImage: {
-                alignSelf: 'stretch',
-                height: this.ifShowCase() ? 120 : 300
-            },
-        };
-    }
+  getInitialStyle() {
+    return {
+      listItem: {
+        flexDirection: (this.thumbnailPresent() || this.gravatarPresent() || this.iconPresent() || (this.notePresent() && this.ifShowCase())) ? 'row' : 'column',
+      },
+      fullImage: {
+        alignSelf: 'stretch',
+        height: this.ifShowCase() ? 120 : 300,
+      },
+    };
+  }
   getRightStyle() {
     return {
       right: {
@@ -128,10 +128,11 @@ class CardItem1 extends NativeBaseComponent {
 
   getChildProps(child) {
     let defaultProps = {};
-      if(child.type === Image)
+    if (child.type === Image) {
       defaultProps = {
         style: this.getInitialStyle().fullImage
       };
+    }
     return computeProps(child.props, defaultProps);
   }
 

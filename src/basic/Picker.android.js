@@ -10,7 +10,7 @@ export default class PickerNB extends Component {
 
   render() {
     return (
-      <Picker ref={c => this._root = c} {...this.props}>
+      <Picker ref={(c) => { this._root = c; }} {...this.props}>
         {this.props.children}
       </Picker>
     );

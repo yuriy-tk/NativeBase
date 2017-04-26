@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { TextInput } from 'react-native';
 import { connectStyle } from 'native-base-shoutem-theme';
 import variables from '../theme/variables/platform';

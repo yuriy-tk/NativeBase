@@ -1,15 +1,9 @@
 /* @flow */
-
+import _ from 'lodash';
 import React from 'react';
 import { View, Image, ScrollView } from 'react-native';
 import { connectStyle } from 'native-base-shoutem-theme';
-import { Footer } from '../../basic/Footer';
-import { Fab } from '../../basic/Fab';
-import _ from 'lodash';
 import mapPropsToStyleNames from '../../Utils/mapPropsToStyleNames';
-import { ViewNB } from './View';
-import { Header } from './Header';
-import { Content } from './Content';
 import NativeBaseComponent from '../Base/NativeBaseComponent';
 import computeProps from '../../Utils/computeProps';
 
@@ -70,7 +64,7 @@ class Container extends NativeBaseComponent {
   }
   render() {
     return (
-      <View ref={c => this._root = c} {...this.prepareRootProps()}>
+      <View ref={(c) => { this._root = c; }} {...this.prepareRootProps()}>
 
         {this.renderHeader()}
 

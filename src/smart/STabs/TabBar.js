@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Animated, Dimensions } from 'react-native';
+import { connectStyle } from 'native-base-shoutem-theme';
 import { IconNB } from '../../basic/IconNB';
 import { Button } from '../../basic/Button';
 import { Text } from '../../basic/Text';
 import variables from '../../theme/variables/platform';
-import { connectStyle } from 'native-base-shoutem-theme';
 import mapPropsToStyleNames from '../../Utils/mapPropsToStyleNames';
+
 class TabBar extends Component {
 
   renderLabelOption(name, page) {
@@ -62,7 +63,7 @@ class TabBar extends Component {
       inputRange: [0, 1], outputRange: [0, containerWidth / numberOfTabs],
     });
     return (
-      <View ref={c => this._root = c} {...this.props}>
+      <View ref={(c) => { this._root = c; }} {...this.props}>
         {(this.props.iconPresent) ? this.renderTab(this.props) :
           this.props.tabs.map((tab, i) => this.renderLabelOption(tab, i))}
         <Animated.View style={[tabUnderlineStyle, { left }, this.props.underlineStyle]} />

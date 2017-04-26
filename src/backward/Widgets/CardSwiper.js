@@ -35,7 +35,7 @@ export default class CardSwiper extends NativeBaseComponent {
       onMoveShouldSetResponderCapture: () => true,
       onMoveShouldSetPanResponderCapture: () => true,
 
-      onPanResponderGrant: (e, gestureState) => {
+      onPanResponderGrant: () => {
         this.state.pan.setOffset({ x: this.state.pan.x._value, y: this.state.pan.y._value });
         this.state.pan.setValue({ x: 0, y: 0 });
       },
@@ -89,11 +89,12 @@ export default class CardSwiper extends NativeBaseComponent {
     const opacity = pan.x.interpolate({ inputRange: [-150, 0, 150], outputRange: [0.5, 1, 0.5] });
     const scale = enter;
 
-    const animatedCardStyles = { transform: [{ translateX }, { translateY }, { rotate }, { scale }], opacity };
+    const animatedCardStyles = {
+      transform: [{ translateX }, { translateY }, { rotate }, { scale }], opacity };
 
 
     return (
-      <View ref={c => this._root = c}>
+      <View ref={(c) => { this._root = c; }}>
         <Animated.View style={animatedCardStyles} {...this._panResponder.panHandlers} >
           {this.props.children}
         </Animated.View>

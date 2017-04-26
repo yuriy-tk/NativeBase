@@ -7,23 +7,22 @@ import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 class CardItem extends Component {
   render() {
     if (this.props.button) {
-    return (
-      <TouchableOpacity
-        ref={c => this._root = c} {...this.props}
-        activeOpacity={(this.props.button) ? 0.2 : 1}
-      >
-        {this.props.children}
-      </TouchableOpacity>
-    );
-    }
-    else {
       return (
-      <View ref={c => this._root = c} {...this.props}
+        <TouchableOpacity
+          ref={(c) => { this._root = c; }} {...this.props}
+          activeOpacity={(this.props.button) ? 0.2 : 1}
+        >
+          {this.props.children}
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <View
+        ref={(c) => { this._root = c; }} {...this.props}
       >
         {this.props.children}
       </View>
-      );
-    }
+    );
   }
 }
 

@@ -7,7 +7,7 @@ import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 class Separator extends Component {
   render() {
     return (
-      <View ref={c => this._root = c} {...this.props} />
+      <View ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }

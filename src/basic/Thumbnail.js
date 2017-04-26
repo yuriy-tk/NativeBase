@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { connectStyle } from 'native-base-shoutem-theme';
-import computeProps from '../Utils/computeProps';
 import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 
 class Thumbnail extends Component {
 
   render() {
     return (
-      <Image ref={c => this._root = c} {...this.props} />
+      <Image ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }

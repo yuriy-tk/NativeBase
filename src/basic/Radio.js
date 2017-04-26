@@ -16,16 +16,17 @@ class Radio extends Component {
     const platform = variables.platform;
 
     return (
-      <TouchableOpacity ref={c => this._root = c} {...this.props}>
+      <TouchableOpacity ref={(c) => { this._root = c; }} {...this.props}>
         {(Platform.OS === 'ios') ?
           (this.props.selected) && <Icon
-          style={{
-            color: variables.brandPrimary,
-            lineHeight: 25,
-            height: 20,
-            fontSize: variables.radioBtnSize,
-          }}
-          name="ios-checkmark" />
+            style={{
+              color: variables.brandPrimary,
+              lineHeight: 25,
+              height: 20,
+              fontSize: variables.radioBtnSize,
+            }}
+            name="ios-checkmark"
+          />
           :
           <Icon
             style={{
@@ -33,7 +34,8 @@ class Radio extends Component {
               lineHeight: variables.radioBtnLineHeight,
               fontSize: variables.radioBtnSize,
             }}
-            name={this.props.selected ? 'md-radio-button-on' : 'md-radio-button-off'}  />
+            name={this.props.selected ? 'md-radio-button-on' : 'md-radio-button-off'}
+          />
       }
       </TouchableOpacity>
     );

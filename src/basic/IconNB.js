@@ -59,7 +59,7 @@ class IconNB extends Component {
 
   render() {
     return (
-      <this.Icon ref={c => this._root = c} {...this.props} />
+      <this.Icon ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }

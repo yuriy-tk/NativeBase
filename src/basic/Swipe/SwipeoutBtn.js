@@ -22,9 +22,9 @@ class SwipeoutBtn extends Component {
     };
   }
   render() {
-    var btn = this.props;
+    const btn = this.props;
 
-    var styleSwipeoutBtn = [styles.swipeoutBtn];
+    const styleSwipeoutBtn = [styles.swipeoutBtn];
 
     //  apply "type" styles (delete || primary || secondary)
     if (btn.type === 'delete') styleSwipeoutBtn.push(styles.colorDelete);
@@ -39,7 +39,7 @@ class SwipeoutBtn extends Component {
       width: btn.width,
     }]);
 
-    var styleSwipeoutBtnComponent = [];
+    const styleSwipeoutBtnComponent = [];
 
     //  set button dimensions
     styleSwipeoutBtnComponent.push([{
@@ -47,7 +47,7 @@ class SwipeoutBtn extends Component {
       width: btn.width,
     }]);
 
-    var styleSwipeoutBtnText = [styles.swipeoutBtnText];
+    const styleSwipeoutBtnText = [styles.swipeoutBtnText];
 
     //  apply text color
     if (btn.color) styleSwipeoutBtnText.push([{ color: btn.color }]);
@@ -61,7 +61,8 @@ class SwipeoutBtn extends Component {
         underlayColor={this.props.underlayColor}
         disabled={this.props.disabled}
         style={styleSwipeoutBtn}
-        textStyle={styleSwipeoutBtnText}>
+        textStyle={styleSwipeoutBtnText}
+      >
         {
           (btn.component ?
             <View style={styleSwipeoutBtnComponent}>{btn.component}</View>

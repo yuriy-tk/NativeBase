@@ -8,7 +8,7 @@ import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
 class Text extends Component {
   render() {
     return (
-      <RNText ref={c => this._root = c} {...this.props} />
+      <RNText ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }

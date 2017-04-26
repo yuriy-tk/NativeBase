@@ -4,6 +4,7 @@ import { connectStyle } from 'native-base-shoutem-theme';
 import mapPropsToStyleNames from '../../Utils/mapPropsToStyleNames';
 
 import { TabBar } from './TabBar';
+
 class STabs extends Component {
 
   static get defaultProps() {
@@ -33,6 +34,31 @@ class STabs extends Component {
     }
   }
 
+  getScrollValue(value) {
+    this.state.scrollValue.setValue(value);
+    this.props.onScroll(value);
+  }
+
+  getContent() {
+    return this.tabContent().map((child, idx) => <View
+      key={idx}
+      style={{ width: this.state.containerWidth }}
+    >
+      {child}
+    </View>);
+  }
+  tabChange(prevPage, currentPage) {
+    this.props.onChangeTab({
+      i: currentPage,
+      ref: this.tabContent()[currentPage],
+      from: prevPage,
+    });
+  }
+
+  contentKey({ page, children = this.props.children, callback = () => {} }) {
+    const newKeys = page;
+    this.setState({ currentPage: page, sceneKeys: newKeys }, callback);
+  }
   goToPage(pageNumber) {
     if (Platform.OS === 'ios') {
       const offset = pageNumber * this.state.containerWidth;
@@ -54,25 +80,9 @@ class STabs extends Component {
     });
   }
 
-
-  contentKey({ page, children = this.props.children, callback = () => {} }) {
-    const newKeys = page;
-    this.setState({ currentPage: page, sceneKeys: newKeys }, callback);
+  tabContent() {
+    return React.Children.map(this.props.children, child => child);
   }
-
-  tabChange(prevPage, currentPage) {
-    this.props.onChangeTab({
-      i: currentPage,
-      ref: this.tabContent()[currentPage],
-      from: prevPage,
-    });
-  }
-
-  getScrollValue(value) {
-    this.state.scrollValue.setValue(value);
-    this.props.onScroll(value);
-  }
-
   renderContent() {
     const content = this.getContent();
     if (Platform.OS === 'ios') {
@@ -95,33 +105,19 @@ class STabs extends Component {
       >
         {content}
       </ScrollView>);
-    } else {
-      return (<ViewPagerAndroid
-        style={{ flex: 1 }}
-        initialPage={this.props.initialPage}
-        scrollEnabled={!this.props.locked}
-        onPageScroll={(e) => {
-          const { offset, position } = e.nativeEvent;
-          this.getScrollValue(position + offset);
-        }}
-        ref={(scrollView) => { this.scrollView = scrollView; }}
-      >
-        {content}
-      </ViewPagerAndroid>);
     }
-  }
-
-  getContent() {
-    return this.tabContent().map((child, idx) => <View
-      key={idx}
-      style={{ width: this.state.containerWidth }}
+    return (<ViewPagerAndroid
+      style={{ flex: 1 }}
+      initialPage={this.props.initialPage}
+      scrollEnabled={!this.props.locked}
+      onPageScroll={(e) => {
+        const { offset, position } = e.nativeEvent;
+        this.getScrollValue(position + offset);
+      }}
+      ref={(scrollView) => { this.scrollView = scrollView; }}
     >
-      {child}
-    </View>);
-  }
-
-  tabContent() {
-    return React.Children.map(this.props.children, child => child);
+      {content}
+    </ViewPagerAndroid>);
   }
 
   renderTab(props) {
@@ -129,9 +125,8 @@ class STabs extends Component {
       return null;
     } else if (this.props.renderTabBar) {
       return React.cloneElement(this.props.renderTabBar(props), props);
-    } else {
-      return <TabBar {...props} vertical={this.props.vertical} />;
     }
+    return <TabBar {...props} vertical={this.props.vertical} />;
   }
 
   render() {
@@ -150,7 +145,7 @@ class STabs extends Component {
     };
 
     return (
-      <View ref={c => this._root = c} {...this.props}>
+      <View ref={(c) => { this._root = c; }} {...this.props}>
         {this.props.tabBarPosition === 'top' && this.renderTab(tabBarProps)}
         {this.renderContent()}
         <View style={(this.props.tabBarPosition === 'bottom') ? { bottom: (Platform.OS === 'ios') ? 0 : 23 } : {}}>

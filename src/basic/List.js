@@ -9,19 +9,19 @@ class List extends Component {
   constructor(props) {
     super(props);
     if (props.dataArray && props.renderRow) {
-      let rowHasChanged = props.rowHasChanged || ((r1, r2) => r1 !== r2);
-      const ds = new ListView.DataSource({ rowHasChanged: rowHasChanged });
+      const rowHasChanged = props.rowHasChanged || ((r1, r2) => r1 !== r2);
+      const ds = new ListView.DataSource({ rowHasChanged });
       this.state = {
-        dataSource: ds.cloneWithRows(props.dataArray)
-      }
+        dataSource: ds.cloneWithRows(props.dataArray),
+      };
     } else {
-      this.state = {}
+      this.state = {};
     }
   }
   componentWillReceiveProps(nextProps) {
     if (this.state.dataSource) {
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(nextProps.dataArray)
+        dataSource: this.state.dataSource.cloneWithRows(nextProps.dataArray),
       });
     }
   }
@@ -36,7 +36,7 @@ class List extends Component {
       return (
         <ListView
           {...this.props}
-          ref={(ref) => this.root = ref}
+          ref={(ref) => { this.root = ref; }}
           enableEmptySections
           dataSource={this.state.dataSource}
           renderRow={this.props.renderRow}
@@ -44,7 +44,7 @@ class List extends Component {
       );
     }
     return (
-      <View ref={c => this._root = c} {...this.props} >
+      <View ref={(c) => { this._root = c; }} {...this.props} >
         {this.renderChildren()}
       </View>
     );

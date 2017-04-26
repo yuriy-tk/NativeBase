@@ -1,11 +1,11 @@
 /* @flow */
 
 import React, { Component } from 'react';
-import { Picker, Modal, View, ListView } from 'react-native';
+import { Picker, Modal, View } from 'react-native';
+import { connectStyle } from 'native-base-shoutem-theme';
 import _ from 'lodash';
 import { Text } from './Text';
 import { List } from './List';
-import { IconNB as Icon } from './IconNB';
 import { Radio } from './Radio';
 import { Container } from './Container';
 import { Content } from './Content';
@@ -16,7 +16,6 @@ import { Title } from './Title';
 import { Left } from './Left';
 import { Right } from './Right';
 import { Body } from './Body';
-import { connectStyle } from 'native-base-shoutem-theme';
 import computeProps from '../Utils/computeProps';
 
 import mapPropsToStyleNames from '../Utils/mapPropsToStyleNames';
@@ -28,7 +27,7 @@ class PickerNB extends Component {
     this.state = {
       modalVisible: false,
       currentLabel: this.getLabel(props),
-      dataSource: props.children
+      dataSource: props.children,
     };
   }
 
@@ -36,7 +35,7 @@ class PickerNB extends Component {
     const currentLabel = this.state.currentLabel;
     const nextLabel = this.getLabel(nextProps);
     const currentDS = this.state.dataSource;
-    const nextDS = nextProps.children
+    const nextDS = nextProps.children;
 
     if (currentLabel !== nextLabel) {
       this.setState({
@@ -60,10 +59,11 @@ class PickerNB extends Component {
       },
     };
   }
-  _setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
 
+  getLabel(props) {
+    const item = _.find(props.children, child => child.props.value === props.selectedValue);
+    return _.get(item, 'props.label');
+  }
   prepareRootProps() {
     const defaultProps = {
       style: this.getInitialStyle().picker,
@@ -73,11 +73,9 @@ class PickerNB extends Component {
     return computeProps(this.props, defaultProps);
   }
 
-  getLabel(props) {
-    const item = _.find(props.children, child => child.props.value === props.selectedValue);
-    return _.get(item, 'props.label');
+  _setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
   }
-
   modifyHeader() {
     const childrenArray = React.Children.toArray(this.props.headerComponent.props.children);
     const newChildren = [];
@@ -102,7 +100,7 @@ class PickerNB extends Component {
     if (this.props.renderButton) {
       return this.props.renderButton(onPress, text, this);
     }
-    return <Button
+    return (<Button
       style={this.props.style}
       dark
       picker
@@ -111,7 +109,7 @@ class PickerNB extends Component {
     >
       <Text note={(this.props.note)} style={this.props.textStyle}>{text}</Text>
       {(this.props.iosIcon === undefined) ? null : this.renderIcon()}
-    </Button>;
+    </Button>);
   }
 
   renderHeader() {
@@ -120,14 +118,14 @@ class PickerNB extends Component {
         style={{ shadowOffset: null, shadowColor: null, shadowRadius: null, shadowOpacity: null }}
         transparent onPress={() => { this._setModalVisible(false); }}
       ><Text>Back</Text></Button></Left>
-    <Body><Title>{(this.props.iosHeader) ? this.props.iosHeader : 'Select One'}</Title></Body>
+      <Body><Title>{(this.props.iosHeader) ? this.props.iosHeader : 'Select One'}</Title></Body>
       <Right />
     </Header>);
   }
 
   render() {
     return (
-      <View ref={c => this._root = c}>
+      <View ref={(c) => { this._root = c; }}>
         {this.renderButton()}
         <Modal
           animationType="slide"

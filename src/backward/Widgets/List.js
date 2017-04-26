@@ -28,7 +28,7 @@ class List extends NativeBaseComponent {
       );
     }
     return (
-      <View ref={c => this._root = c} {...this.props} >
+      <View ref={(c) => { this._root = c; }} {...this.props} >
         {this.renderChildren()}
       </View>
     );

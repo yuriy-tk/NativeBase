@@ -43,7 +43,7 @@ const NativeButton = React.createClass({
     isAndroid: (Platform.OS === 'android'),
   },
 
-  getDefaultProps: function() {
+  getDefaultProps() {
     return {
       textStyle: null,
       disabledStyle: null,
@@ -51,20 +51,20 @@ const NativeButton = React.createClass({
     };
   },
 
-  _renderText: function() {
+  _renderText() {
     // If children is not a string don't wrapp it in a Text component
     if (typeof this.props.children !== 'string') {
       return this.props.children;
     }
 
     return (
-      <Text style={ [ styles.textButton, this.props.textStyle ] }>
+      <Text style={[styles.textButton, this.props.textStyle]}>
         { this.props.children }
       </Text>
     );
   },
 
-  render: function() {
+  render() {
     const disabledStyle = this.props.disabled ? (this.props.disabledStyle || styles.opacity) : {};
 
     // Extract Button props
@@ -93,7 +93,8 @@ const NativeButton = React.createClass({
 
       return (
         <TouchableNativeFeedback
-          {...buttonProps}>
+          {...buttonProps}
+        >
           <View style={[styles.button, this.props.style, disabledStyle]}>
             {this._renderText()}
           </View>
@@ -106,7 +107,8 @@ const NativeButton = React.createClass({
       <TouchableHighlight
         {...buttonProps}
         style={[styles.button, this.props.style, disabledStyle]}
-        underlayColor={ this.props.underlayColor }>
+        underlayColor={ this.props.underlayColor }
+      >
         { this._renderText() }
       </TouchableHighlight>
     );

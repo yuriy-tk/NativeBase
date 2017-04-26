@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+
 import RNDrawer from 'react-native-drawer';
 
 export default class Drawer extends Component {
   constructor(props) {
     super(props);
-
   }
   render() {
     return (
-      <RNDrawer ref={c => this._root = c} {...this.props}/>
+      <RNDrawer ref={(c) => { this._root = c; }} {...this.props} />
     );
   }
 }
@@ -24,15 +24,15 @@ Drawer.defaultProps = {
       shadowColor: '#000000',
       shadowOpacity: 0,
       shadowRadius: 0,
-      elevation: 5
+      elevation: 5,
     },
     mainOverlay: {
       opacity: 0,
       backgroundColor: 'rgba(0, 0, 0, 0.8)',
-      elevation: 8
-    }
+      elevation: 8,
+    },
   },
-  tweenHandler: (ratio) => ({
-   mainOverlay: { opacity: (ratio) / 2}
-  })
-}
+  tweenHandler: ratio => ({
+    mainOverlay: { opacity: (ratio) / 2 },
+  }),
+};

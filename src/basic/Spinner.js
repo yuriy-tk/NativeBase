@@ -9,7 +9,7 @@ class Spinner extends Component {
   render() {
     return (
       <ActivityIndicator
-        ref={c => this._root = c} {...this.props}
+        ref={(c) => { this._root = c; }} {...this.props}
         color={this.props.color ? this.props.color : this.props.inverse ? variables.inverseSpinnerColor : variables.defaultSpinnerColor} size={this.props.size ? this.props.size : 'large'}
       />
     );
