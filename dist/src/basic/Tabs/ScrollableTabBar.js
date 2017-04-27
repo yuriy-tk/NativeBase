@@ -1,9 +1,11 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.ScrollableTab=undefined;
-
+Object.defineProperty(exports,"__esModule",{value:true});exports.ScrollableTab=undefined;var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _nativeBaseShoutemTheme=require('native-base-shoutem-theme');
 var _platform=require('./../../theme/variables/platform');var _platform2=_interopRequireDefault(_platform);
-var _index=require('./../../index');
-var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}var React=require('react');var ReactNative=require('react-native');var
+var _index=require('./../../index');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+
+var React=require('react');
+var ReactNative=require('react-native');var
+
 
 View=
 
@@ -105,7 +107,6 @@ var rightBoundScroll=this._tabContainerMeasurements.width-this._containerMeasure
 newScrollX=newScrollX>rightBoundScroll?rightBoundScroll:newScrollX;
 this._scrollView.scrollTo({x:newScrollX,y:0,animated:false});
 }
-
 },
 
 updateTabUnderline:function updateTabUnderline(position,pageOffset,tabCount){
@@ -127,7 +128,17 @@ this.state._widthTabUnderline.setValue(lineRight-lineLeft);
 }
 },
 
-renderTab:function renderTab(name,page,isTabActive,onPressHandler,onLayoutHandler,tabStyle,activeTabStyle,textStyle,activeTextStyle,tabHeaderStyle){
+renderTab:function renderTab(
+name,
+page,
+isTabActive,
+onPressHandler,
+onLayoutHandler,
+tabStyle,
+activeTabStyle,
+textStyle,
+activeTextStyle,
+tabHeaderStyle){
 var headerContent=typeof name!=='string'?name.props.children:undefined;var _props=
 this.props,activeTextColor=_props.activeTextColor,inactiveTextColor=_props.inactiveTextColor;
 var textColor=isTabActive?activeTextColor:inactiveTextColor;
@@ -139,14 +150,16 @@ key:name+'_'+page,
 onPress:function onPress(){return onPressHandler(page);},
 onLayout:onLayoutHandler},
 
-React.createElement(_index.TabHeading,{scrollable:true,style:isTabActive?activeTabStyle:tabStyle,active:isTabActive},
+React.createElement(_index.TabHeading,{scrollable:true,style:
+isTabActive?activeTabStyle:tabStyle,
+active:isTabActive},
+
 React.createElement(_index.Text,{style:isTabActive?activeTextStyle:textStyle},
 name)));
 
 
 
-}else
-{
+}
 return React.createElement(Button,{
 key:_lodash2.default.random(1.2,5.2),
 onPress:function onPress(){return onPressHandler(page);}},
@@ -155,7 +168,6 @@ React.createElement(_index.TabHeading,{scrollable:true,style:tabHeaderStyle,acti
 headerContent));
 
 
-}
 },
 
 measureTab:function measureTab(page,event){var _event$nativeEvent$la=
@@ -194,16 +206,32 @@ bounces:false,
 scrollsToTop:false},
 
 React.createElement(View,{
-style:[styles.tabs,{width:this.state._containerWidth},this.props.tabsContainerStyle],
+style:
+[styles.tabs,{width:this.state._containerWidth},this.props.tabsContainerStyle],
 ref:'tabContainer',
 onLayout:this.onTabContainerLayout},
 
 this.props.tabs.map(function(name,page){
 var isTabActive=_this.props.activeTab===page;
 var renderTab=_this.props.renderTab||_this.renderTab;
-return renderTab(name,page,isTabActive,_this.props.goToPage,_this.measureTab.bind(_this,page),_this.props.tabStyle[page],_this.props.activeTabStyle[page],_this.props.textStyle[page],_this.props.activeTextStyle[page],_this.props.tabHeaderStyle[page]);
+return renderTab(
+name,
+page,
+isTabActive,
+_this.props.goToPage,
+_this.measureTab.bind(_this,page),
+_this.props.tabStyle[page],
+_this.props.activeTabStyle[page],
+_this.props.textStyle[page],
+_this.props.activeTextStyle[page],
+_this.props.tabHeaderStyle[page]);
 }),
-React.createElement(Animated.View,{style:[tabUnderlineStyle,dynamicTabUnderline,this.props.underlineStyle]}))));
+React.createElement(Animated.View,{
+style:[
+tabUnderlineStyle,
+dynamicTabUnderline,
+this.props.underlineStyle]}))));
+
 
 
 

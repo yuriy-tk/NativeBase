@@ -9,7 +9,7 @@ Spinner=function(_Component){_inherits(Spinner,_Component);function Spinner(){_c
 {var _this2=this;
 return(
 _react2.default.createElement(_reactNative.ActivityIndicator,_extends({
-ref:function ref(c){return _this2._root=c;}},this.props,{
+ref:function ref(c){_this2._root=c;}},this.props,{
 color:this.props.color?this.props.color:this.props.inverse?_platform2.default.inverseSpinnerColor:_platform2.default.defaultSpinnerColor,size:this.props.size?this.props.size:'large'})));
 
 

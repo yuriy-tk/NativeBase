@@ -49,7 +49,7 @@ var props=this.prepareRootProps();
 
 var uri=GRAVATAR_URI+(0,_blueimpMd2.default)(this.props.email)+'?s='+props.style.height;
 return(
-_react2.default.createElement(_reactNative.Image,_extends({ref:function ref(c){return _this2._root=c;}},props,{source:{uri:uri}})));
+_react2.default.createElement(_reactNative.Image,_extends({ref:function ref(c){_this2._root=c;}},props,{source:{uri:uri}})));
 
 }}]);return Gravatar;}(_NativeBaseComponent3.default);
 

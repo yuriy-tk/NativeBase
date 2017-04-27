@@ -9,7 +9,7 @@ var _mapPropsToStyleNames=require('../../Utils/mapPropsToStyleNames');var _mapPr
 Subtitle=function(_Component){_inherits(Subtitle,_Component);function Subtitle(){_classCallCheck(this,Subtitle);return _possibleConstructorReturn(this,(Subtitle.__proto__||Object.getPrototypeOf(Subtitle)).apply(this,arguments));}_createClass(Subtitle,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.Text,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.Text,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Subtitle;}(_react.Component);
 

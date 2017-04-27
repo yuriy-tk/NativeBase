@@ -36,7 +36,7 @@ if(this.state.dataSource){
 return(
 _react2.default.createElement(_reactNative.ListView,_extends({},
 this.props,{
-ref:function ref(_ref){return _this2.root=_ref;},
+ref:function ref(_ref){_this2.root=_ref;},
 enableEmptySections:true,
 dataSource:this.state.dataSource,
 renderRow:this.props.renderRow})));
@@ -44,7 +44,7 @@ renderRow:this.props.renderRow})));
 
 }
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this2._root=c;}},this.props),
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this2._root=c;}},this.props),
 this.renderChildren()));
 
 

@@ -35,7 +35,7 @@ this._panResponder=_reactNative.PanResponder.create({
 onMoveShouldSetResponderCapture:function onMoveShouldSetResponderCapture(){return true;},
 onMoveShouldSetPanResponderCapture:function onMoveShouldSetPanResponderCapture(){return true;},
 
-onPanResponderGrant:function onPanResponderGrant(e,gestureState){
+onPanResponderGrant:function onPanResponderGrant(){
 _this2.state.pan.setOffset({x:_this2.state.pan.x._value,y:_this2.state.pan.y._value});
 _this2.state.pan.setValue({x:0,y:0});
 },
@@ -89,11 +89,12 @@ var rotate=pan.x.interpolate({inputRange:[-300,0,300],outputRange:['-30deg','0de
 var opacity=pan.x.interpolate({inputRange:[-150,0,150],outputRange:[0.5,1,0.5]});
 var scale=enter;
 
-var animatedCardStyles={transform:[{translateX:translateX},{translateY:translateY},{rotate:rotate},{scale:scale}],opacity:opacity};
+var animatedCardStyles={
+transform:[{translateX:translateX},{translateY:translateY},{rotate:rotate},{scale:scale}],opacity:opacity};
 
 
 return(
-_react2.default.createElement(_View.View,{ref:function ref(c){return _this3._root=c;}},
+_react2.default.createElement(_View.View,{ref:function ref(c){_this3._root=c;}},
 _react2.default.createElement(_reactNative.Animated.View,_extends({style:animatedCardStyles},this._panResponder.panHandlers),
 this.props.children)));
 

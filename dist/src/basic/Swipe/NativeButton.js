@@ -94,6 +94,7 @@ background:this.props.background||_reactNative.TouchableNativeFeedback.Selectabl
 return(
 _react2.default.createElement(_reactNative.TouchableNativeFeedback,
 buttonProps,
+
 _react2.default.createElement(_reactNative.View,{style:[styles.button,this.props.style,disabledStyle]},
 this._renderText())));
 
@@ -107,6 +108,7 @@ _react2.default.createElement(_reactNative.TouchableHighlight,_extends({},
 buttonProps,{
 style:[styles.button,this.props.style,disabledStyle],
 underlayColor:this.props.underlayColor}),
+
 this._renderText()));
 
 

@@ -17,25 +17,29 @@ return(
 _react2.default.createElement(_reactNative.TouchableHighlight,{
 onPress:this.props.onPress,
 onLongPress:this.props.onLongPress,
-ref:function ref(c){return _this2._root=c;},
+ref:function ref(c){_this2._root=c;},
 underlayColor:variables.listBtnUnderlayColor},
 
 _react2.default.createElement(_reactNative.View,this.props,this.props.children)));
 
 
-}else
-{
+}
 return(
-_react2.default.createElement(_reactNative.TouchableNativeFeedback,{ref:function ref(c){return _this2._root=c;},
+_react2.default.createElement(_reactNative.TouchableNativeFeedback,{
+ref:function ref(c){_this2._root=c;},
 onPress:this.props.onPress,
 onLongPress:this.props.onLongPress,
-background:this.props.androidRippleColor?_reactNative.TouchableNativeFeedback.Ripple(this.props.androidRippleColor):_reactNative.TouchableNativeFeedback.Ripple(_platform2.default.androidRippleColorDark)},
+background:
+this.props.androidRippleColor?
+_reactNative.TouchableNativeFeedback.Ripple(this.props.androidRippleColor):
+
+_reactNative.TouchableNativeFeedback.Ripple(_platform2.default.androidRippleColorDark)},
+
 _react2.default.createElement(_reactNative.View,{style:{marginLeft:-17,paddingLeft:17}},
 _react2.default.createElement(_reactNative.View,this.props,this.props.children))));
 
 
 
-}
 }}]);return ListItem;}(_react.Component);ListItem.contextTypes={theme:_react2.default.PropTypes.object};
 
 

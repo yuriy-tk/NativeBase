@@ -7,7 +7,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 Right=function(_Component){_inherits(Right,_Component);function Right(){_classCallCheck(this,Right);return _possibleConstructorReturn(this,(Right.__proto__||Object.getPrototypeOf(Right)).apply(this,arguments));}_createClass(Right,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Right;}(_react.Component);
 

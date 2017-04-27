@@ -128,10 +128,11 @@ return squareThumbs;
 
 child){
 var defaultProps={};
-if(child.type===_reactNative.Image)
+if(child.type===_reactNative.Image){
 defaultProps={
 style:this.getInitialStyle().fullImage};
 
+}
 return(0,_computeProps2.default)(child.props,defaultProps);
 }},{key:'renderChildren',value:function renderChildren()
 

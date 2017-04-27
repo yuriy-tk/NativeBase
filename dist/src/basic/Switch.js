@@ -7,7 +7,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 Switch=function(_Component){_inherits(Switch,_Component);function Switch(){_classCallCheck(this,Switch);return _possibleConstructorReturn(this,(Switch.__proto__||Object.getPrototypeOf(Switch)).apply(this,arguments));}_createClass(Switch,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.Switch,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.Switch,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Switch;}(_react.Component);
 

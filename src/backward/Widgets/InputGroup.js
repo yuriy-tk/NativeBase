@@ -48,7 +48,7 @@ class InputGroup extends NativeBaseComponent {
     if (inp) {
       let inputProps = {};
       inputProps = inp.props;
-      var clonedInp = React.cloneElement(
+      const clonedInp = React.cloneElement(
          inp,
         {
           ...this.inputProps,

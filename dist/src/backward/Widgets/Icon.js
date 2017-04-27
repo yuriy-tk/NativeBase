@@ -49,7 +49,7 @@ this.Icon=_Ionicons2.default;
 
 {var _this2=this;
 return(
-_react2.default.createElement(this.Icon,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(this.Icon,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Icon;}(_react.Component);
 

@@ -1,20 +1,22 @@
-var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};
+var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}
+var React=require('react');var
+
+
+PropTypes=
+React.PropTypes;
+var ReactNative=require('react-native');var
+
+
+Dimensions=
 
 
 
 
 
 
+ReactNative.Dimensions,View=ReactNative.View,Animated=ReactNative.Animated,ScrollView=ReactNative.ScrollView,StyleSheet=ReactNative.StyleSheet,InteractionManager=ReactNative.InteractionManager,Platform=ReactNative.Platform;
+var TimerMixin=require('react-timer-mixin');
 
-
-
-
-
-
-
-
-
-var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}var React=require('react');var PropTypes=React.PropTypes,Component=React.Component;var ReactNative=require('react-native');var Dimensions=ReactNative.Dimensions,View=ReactNative.View,Animated=ReactNative.Animated,ScrollView=ReactNative.ScrollView,StyleSheet=ReactNative.StyleSheet,InteractionManager=ReactNative.InteractionManager,Platform=ReactNative.Platform;var TimerMixin=require('react-timer-mixin');
 
 var SceneComponent=require('./SceneComponent');var _require=
 require('./DefaultTabBar'),DefaultTabBar=_require.DefaultTabBar;var _require2=
@@ -22,12 +24,6 @@ require('./ScrollableTabBar'),ScrollableTabBar=_require2.ScrollableTabBar;
 
 
 var ScrollableTabView=React.createClass({displayName:'ScrollableTabView',
-mixins:[TimerMixin],
-statics:{
-DefaultTabBar:DefaultTabBar,
-ScrollableTabBar:ScrollableTabBar},
-
-
 propTypes:{
 tabBarPosition:PropTypes.oneOf(['top','bottom','overlayTop','overlayBottom']),
 initialPage:PropTypes.number,
@@ -40,6 +36,11 @@ contentProps:PropTypes.object,
 scrollWithoutAnimation:PropTypes.bool,
 locked:PropTypes.bool,
 prerenderingSiblingsNumber:PropTypes.number},
+
+mixins:[TimerMixin],
+statics:{
+DefaultTabBar:DefaultTabBar,
+ScrollableTabBar:ScrollableTabBar},
 
 
 getDefaultProps:function getDefaultProps(){
@@ -105,13 +106,15 @@ if(this.props.renderTabBar===false){
 return null;
 }else if(this.props.renderTabBar){
 return React.cloneElement(this.props.renderTabBar(props),props);
-}else{
-return React.createElement(DefaultTabBar,props);
 }
+return React.createElement(DefaultTabBar,props);
 },
 
 updateSceneKeys:function updateSceneKeys(_ref){var page=_ref.page,_ref$children=_ref.children,children=_ref$children===undefined?this.props.children:_ref$children,_ref$callback=_ref.callback,callback=_ref$callback===undefined?function(){}:_ref$callback;
-var newKeys=this.newSceneKeys({previousKeys:this.state.sceneKeys,currentPage:page,children:children});
+var newKeys=this.newSceneKeys({
+previousKeys:this.state.sceneKeys,
+currentPage:page,
+children:children});
 this.setState({currentPage:page,sceneKeys:newKeys},callback);
 },
 
@@ -176,7 +179,8 @@ key:child.key,
 shouldUpdated:_this4._shouldRenderSceneKey(idx,_this4.state.currentPage),
 style:{width:_this4.state.containerWidth}},
 
-_this4._keyExists(_this4.state.sceneKeys,key)?child:React.createElement(View,{heading:child.props.heading}));
+_this4._keyExists(_this4.state.sceneKeys,key)?
+child:React.createElement(View,{heading:child.props.heading}));
 
 });
 },

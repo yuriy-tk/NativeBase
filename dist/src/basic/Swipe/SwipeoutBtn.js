@@ -63,6 +63,7 @@ disabled:this.props.disabled,
 style:styleSwipeoutBtn,
 textStyle:styleSwipeoutBtnText},
 
+
 btn.component?
 _react2.default.createElement(_reactNative.View,{style:styleSwipeoutBtnComponent},btn.component):
 

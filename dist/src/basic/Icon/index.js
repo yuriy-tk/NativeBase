@@ -6,7 +6,6 @@ var _nativeBaseShoutemTheme=require('native-base-shoutem-theme');
 var _IconNB=require('../IconNB');
 var _NBIcons=require('./NBIcons.json');var _NBIcons2=_interopRequireDefault(_NBIcons);
 var _platform=require('./../../theme/variables/platform');var _platform2=_interopRequireDefault(_platform);
-var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 
 var _mapPropsToStyleNames=require('../../Utils/mapPropsToStyleNames');var _mapPropsToStyleNames2=_interopRequireDefault(_mapPropsToStyleNames);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
@@ -19,22 +18,21 @@ Icon=function(_Component){_inherits(Icon,_Component);function Icon(){_classCallC
 var variables=this.context.theme?this.context.theme['@@shoutem.theme/themeStyle'].variables:_platform2.default;
 var platformStyle=variables.platformStyle;
 var platform=variables.platform;
-
 if(variables.iconFamily==='Ionicons'){
 if(typeof _NBIcons2.default[this.props.name]!=='object'){
 return this.props.name;
-}else
-if(typeof _NBIcons2.default[this.props.name]==='object'){
+}else if(typeof _NBIcons2.default[this.props.name]==='object'){
 var name=void 0;
 if(platform==='ios'&&platformStyle!=='material'){
-name=this.props.active?_NBIcons2.default[this.props.name].ios.active:_NBIcons2.default[this.props.name].ios.default;
+name=this.props.active?
+_NBIcons2.default[this.props.name].ios.active:_NBIcons2.default[this.props.name].ios.default;
 }else{
-name=this.props.active?_NBIcons2.default[this.props.name].android.active:_NBIcons2.default[this.props.name].android.default;
+name=this.props.active?
+_NBIcons2.default[this.props.name].android.active:_NBIcons2.default[this.props.name].android.default;
 }
 return name;
 }
-}else
-{
+}else{
 return this.props.name;
 }
 }},{key:'getIconName',value:function getIconName()
@@ -43,32 +41,29 @@ return this.props.name;
 if(_reactNative.Platform.OS==='ios'){
 if(this.props.ios){
 return this.props.ios;
-}else{
+}
 return this.props.active?
 _NBIcons2.default[this.props.name].ios.active:_NBIcons2.default[this.props.name].ios.default;
-}
 }else if(this.props.android){
 return this.props.android;
-}else{
+}
 return this.props.active?
 _NBIcons2.default[this.props.name].android.active:_NBIcons2.default[this.props.name].android.default;
-}
 }},{key:'render',value:function render()
 
 {var _this2=this;
 if(this.props.ios&&this.props.android){
 return(
-_react2.default.createElement(_IconNB.IconNB,_extends({ref:function ref(c){return _this2._root=c;}},this.props,{name:_reactNative.Platform.OS==='ios'?this.props.ios:this.props.android})));
+_react2.default.createElement(_IconNB.IconNB,_extends({ref:function ref(c){_this2._root=c;}},this.props,{name:_reactNative.Platform.OS==='ios'?this.props.ios:this.props.android})));
 
 }else if(this.props.name&&(this.props.android||this.props.ios)){
 return(
-_react2.default.createElement(_IconNB.IconNB,_extends({ref:function ref(c){return _this2._root=c;}},this.props,{name:this.getIconName()})));
-
-}else{
-return(
-_react2.default.createElement(_IconNB.IconNB,_extends({ref:function ref(c){return _this2._root=c;}},this.props,{name:this.getName()})));
+_react2.default.createElement(_IconNB.IconNB,_extends({ref:function ref(c){_this2._root=c;}},this.props,{name:this.getIconName()})));
 
 }
+return(
+_react2.default.createElement(_IconNB.IconNB,_extends({ref:function ref(c){_this2._root=c;}},this.props,{name:this.getName()})));
+
 }}]);return Icon;}(_react.Component);Icon.contextTypes={theme:_react2.default.PropTypes.object};
 
 

@@ -4,6 +4,7 @@ var _nativeBaseShoutemTheme=require('native-base-shoutem-theme');
 var _mapPropsToStyleNames=require('../../Utils/mapPropsToStyleNames');var _mapPropsToStyleNames2=_interopRequireDefault(_mapPropsToStyleNames);
 
 var _TabBar=require('./TabBar');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
+
 STabs=function(_Component){_inherits(STabs,_Component);_createClass(STabs,null,[{key:'defaultProps',get:function get()
 
 {
@@ -31,8 +32,33 @@ props){
 if(props.page>=0&&props.page!==this.state.currentPage){
 this.goToPage(props.page);
 }
-}},{key:'goToPage',value:function goToPage(
+}},{key:'getScrollValue',value:function getScrollValue(
 
+value){
+this.state.scrollValue.setValue(value);
+this.props.onScroll(value);
+}},{key:'getContent',value:function getContent()
+
+{var _this2=this;
+return this.tabContent().map(function(child,idx){return _react2.default.createElement(_reactNative.View,{
+key:idx,
+style:{width:_this2.state.containerWidth}},
+
+child);});
+
+}},{key:'tabChange',value:function tabChange(
+prevPage,currentPage){
+this.props.onChangeTab({
+i:currentPage,
+ref:this.tabContent()[currentPage],
+from:prevPage});
+
+}},{key:'contentKey',value:function contentKey(_ref)
+
+{var page=_ref.page,_ref$children=_ref.children,children=_ref$children===undefined?this.props.children:_ref$children,_ref$callback=_ref.callback,callback=_ref$callback===undefined?function(){}:_ref$callback;
+var newKeys=page;
+this.setState({currentPage:page,sceneKeys:newKeys},callback);
+}},{key:'goToPage',value:function goToPage(
 pageNumber){
 if(_reactNative.Platform.OS==='ios'){
 var offset=pageNumber*this.state.containerWidth;
@@ -52,28 +78,12 @@ this.contentKey({
 page:pageNumber,
 callback:this.tabChange.bind(this,currentPage,pageNumber)});
 
-}},{key:'contentKey',value:function contentKey(_ref)
+}},{key:'tabContent',value:function tabContent()
 
-
-{var page=_ref.page,_ref$children=_ref.children,children=_ref$children===undefined?this.props.children:_ref$children,_ref$callback=_ref.callback,callback=_ref$callback===undefined?function(){}:_ref$callback;
-var newKeys=page;
-this.setState({currentPage:page,sceneKeys:newKeys},callback);
-}},{key:'tabChange',value:function tabChange(
-
-prevPage,currentPage){
-this.props.onChangeTab({
-i:currentPage,
-ref:this.tabContent()[currentPage],
-from:prevPage});
-
-}},{key:'getScrollValue',value:function getScrollValue(
-
-value){
-this.state.scrollValue.setValue(value);
-this.props.onScroll(value);
+{
+return _react2.default.Children.map(this.props.children,function(child){return child;});
 }},{key:'renderContent',value:function renderContent()
-
-{var _this2=this;
+{var _this3=this;
 var content=this.getContent();
 if(_reactNative.Platform.OS==='ios'){
 return _react2.default.createElement(_reactNative.ScrollView,{
@@ -81,10 +91,10 @@ horizontal:true,
 pagingEnabled:true,
 automaticallyAdjustContentInsets:false,
 contentOffset:{x:this.props.initialPage*this.state.containerWidth},
-ref:function ref(scrollView){_this2.scrollView=scrollView;},
+ref:function ref(scrollView){_this3.scrollView=scrollView;},
 onScroll:function onScroll(e){
 var offsetX=e.nativeEvent.contentOffset.x;
-_this2.getScrollValue(offsetX/_this2.state.containerWidth);
+_this3.getScrollValue(offsetX/_this3.state.containerWidth);
 },
 scrollEventThrottle:16,
 scrollsToTop:false,
@@ -95,33 +105,19 @@ alwaysBounceVertical:false},
 
 content);
 
-}else{
+}
 return _react2.default.createElement(_reactNative.ViewPagerAndroid,{
 style:{flex:1},
 initialPage:this.props.initialPage,
 scrollEnabled:!this.props.locked,
 onPageScroll:function onPageScroll(e){var _e$nativeEvent=
 e.nativeEvent,offset=_e$nativeEvent.offset,position=_e$nativeEvent.position;
-_this2.getScrollValue(position+offset);
+_this3.getScrollValue(position+offset);
 },
-ref:function ref(scrollView){_this2.scrollView=scrollView;}},
+ref:function ref(scrollView){_this3.scrollView=scrollView;}},
 
 content);
 
-}
-}},{key:'getContent',value:function getContent()
-
-{var _this3=this;
-return this.tabContent().map(function(child,idx){return _react2.default.createElement(_reactNative.View,{
-key:idx,
-style:{width:_this3.state.containerWidth}},
-
-child);});
-
-}},{key:'tabContent',value:function tabContent()
-
-{
-return _react2.default.Children.map(this.props.children,function(child){return child;});
 }},{key:'renderTab',value:function renderTab(
 
 props){
@@ -129,9 +125,8 @@ if(this.props.renderTabBar===false){
 return null;
 }else if(this.props.renderTabBar){
 return _react2.default.cloneElement(this.props.renderTabBar(props),props);
-}else{
-return _react2.default.createElement(_TabBar.TabBar,_extends({},props,{vertical:this.props.vertical}));
 }
+return _react2.default.createElement(_TabBar.TabBar,_extends({},props,{vertical:this.props.vertical}));
 }},{key:'render',value:function render()
 
 {var _this4=this;
@@ -150,7 +145,7 @@ scrollValue:this.state.scrollValue};
 
 
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this4._root=c;}},this.props),
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this4._root=c;}},this.props),
 this.props.tabBarPosition==='top'&&this.renderTab(tabBarProps),
 this.renderContent(),
 _react2.default.createElement(_reactNative.View,{style:this.props.tabBarPosition==='bottom'?{bottom:_reactNative.Platform.OS==='ios'?0:23}:{}},

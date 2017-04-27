@@ -10,7 +10,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 ViewNB=function(_Component){_inherits(ViewNB,_Component);function ViewNB(){_classCallCheck(this,ViewNB);return _possibleConstructorReturn(this,(ViewNB.__proto__||Object.getPrototypeOf(ViewNB)).apply(this,arguments));}_createClass(ViewNB,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return ViewNB;}(_react.Component);
 

@@ -1,4 +1,3 @@
-'use_strict';
 var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _ReactNativePropRegistry=require('react-native/Libraries/Renderer/src/renderers/native/ReactNativePropRegistry');var _ReactNativePropRegistry2=_interopRequireDefault(_ReactNativePropRegistry);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 

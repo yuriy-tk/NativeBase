@@ -7,7 +7,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 Separator=function(_Component){_inherits(Separator,_Component);function Separator(){_classCallCheck(this,Separator);return _possibleConstructorReturn(this,(Separator.__proto__||Object.getPrototypeOf(Separator)).apply(this,arguments));}_createClass(Separator,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Separator;}(_react.Component);
 

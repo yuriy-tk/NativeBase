@@ -7,7 +7,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 Label=function(_Component){_inherits(Label,_Component);function Label(){_classCallCheck(this,Label);return _possibleConstructorReturn(this,(Label.__proto__||Object.getPrototypeOf(Label)).apply(this,arguments));}_createClass(Label,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.Text,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.Text,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Label;}(_react.Component);
 

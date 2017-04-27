@@ -7,7 +7,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 Tab=function(_Component){_inherits(Tab,_Component);function Tab(){_classCallCheck(this,Tab);return _possibleConstructorReturn(this,(Tab.__proto__||Object.getPrototypeOf(Tab)).apply(this,arguments));}_createClass(Tab,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this2._root=c;}},this.props),
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this2._root=c;}},this.props),
 this.props.children));
 
 

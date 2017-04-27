@@ -12,7 +12,7 @@ var _Content=require('./Widgets/Content');
 var _Button=require('./Widgets/Button');
 var _Text=require('./Widgets/Text');
 var _Switch=require('../basic/Switch');
-var _Picker=require('../basic/Picker');
+var _PickerItem=require('../basic/PickerItem');
 var _List=require('./Widgets/List');
 var _ListItem=require('./Widgets/ListItem');
 var _CardItem=require('./Widgets/CardItem');
@@ -49,7 +49,7 @@ Content:_Content.Content,
 Button:_Button.Button,
 Text:_Text.Text,
 Switch:_Switch.Switch,
-Picker:_Picker.PickerNB,
+Picker:_PickerItem.PickerNB,
 List:_List.List,
 ListItem:_ListItem.ListItem,
 CardItem:_CardItem.CardItem1,

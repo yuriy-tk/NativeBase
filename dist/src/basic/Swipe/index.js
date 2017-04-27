@@ -1,24 +1,20 @@
 Object.defineProperty(exports,"__esModule",{value:true});exports.Swipeout=undefined;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _reactTweenState=require('react-tween-state');var _reactTweenState2=_interopRequireDefault(_reactTweenState);
-var _NativeButton=require('./NativeButton');var _NativeButton2=_interopRequireDefault(_NativeButton);
-var _styles=require('./styles');var _styles2=_interopRequireDefault(_styles);
 var _nativeBaseShoutemTheme=require('native-base-shoutem-theme');
-var _mapPropsToStyleNames=require('../../Utils/mapPropsToStyleNames');var _mapPropsToStyleNames2=_interopRequireDefault(_mapPropsToStyleNames);
-
 var _react=require('react');var _react2=_interopRequireDefault(_react);
 
 
 
 
-var _reactNative=require('react-native');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
+var _reactNative=require('react-native');
 
 
 
 
-
-
+var _NativeButton=require('./NativeButton');var _NativeButton2=_interopRequireDefault(_NativeButton);
+var _styles=require('./styles');var _styles2=_interopRequireDefault(_styles);
+var _mapPropsToStyleNames=require('../../Utils/mapPropsToStyleNames');var _mapPropsToStyleNames2=_interopRequireDefault(_mapPropsToStyleNames);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
 SwipeoutBtn=function(_Component){_inherits(SwipeoutBtn,_Component);function SwipeoutBtn(){_classCallCheck(this,SwipeoutBtn);return _possibleConstructorReturn(this,(SwipeoutBtn.__proto__||Object.getPrototypeOf(SwipeoutBtn)).apply(this,arguments));}_createClass(SwipeoutBtn,[{key:'render',value:function render()
-
 
 
 
@@ -85,6 +81,7 @@ disabled:this.props.disabled,
 style:styleSwipeoutBtn,
 textStyle:styleSwipeoutBtnText},
 
+
 btn.component?
 _react2.default.createElement(_reactNative.View,{style:styleSwipeoutBtnComponent},btn.component):
 
@@ -97,8 +94,6 @@ btn.text));
 
 
 var Swipeout=_react2.default.createClass({displayName:'Swipeout',
-mixins:[_reactTweenState2.default.Mixin],
-
 propTypes:{
 autoClose:_react.PropTypes.bool,
 backgroundColor:_react.PropTypes.string,
@@ -110,6 +105,7 @@ scroll:_react.PropTypes.func,
 style:_reactNative.View.propTypes.style,
 sensitivity:_react.PropTypes.number},
 
+mixins:[_reactTweenState2.default.Mixin],
 
 getDefaultProps:function getDefaultProps(){
 return{
@@ -173,8 +169,8 @@ var posX=gestureState.dx;
 var posY=gestureState.dy;
 var leftWidth=this.state.btnsLeftWidth;
 var rightWidth=this.state.btnsRightWidth;
-if(this.state.openedRight)var posX=gestureState.dx-rightWidth;else
-if(this.state.openedLeft)var posX=gestureState.dx+leftWidth;
+if(this.state.openedRight)posX=gestureState.dx-rightWidth;else
+if(this.state.openedLeft)posX=gestureState.dx+leftWidth;
 
 
 var moveX=Math.abs(posX)>Math.abs(posY);
@@ -204,14 +200,14 @@ var openLeft=posX>openX||posX>btnsLeftWidth/2;
 var openRight=posX<-openX||posX<-btnsRightWidth/2;
 
 
-if(this.state.openedRight)var openRight=posX-openX<-openX;
-if(this.state.openedLeft)var openLeft=posX+openX>openX;
+if(this.state.openedRight)openRight=posX-openX<-openX;
+if(this.state.openedLeft)openLeft=posX+openX>openX;
 
 
 var timeDiff=new Date().getTime()-this.state.timeStart<200;
 if(timeDiff){
-var openRight=posX<-openX/10&&!this.state.openedLeft;
-var openLeft=posX>openX/10&&!this.state.openedRight;
+openRight=posX<-openX/10&&!this.state.openedLeft;
+openLeft=posX>openX/10&&!this.state.openedRight;
 }
 
 if(this.state.swiping){
@@ -223,8 +219,7 @@ this.setState({contentPos:-btnsRightWidth,openedLeft:false,openedRight:true});
 
 this._tweenContent('contentPos',btnsLeftWidth);
 this.setState({contentPos:btnsLeftWidth,openedLeft:true,openedRight:false});
-}else
-{
+}else{
 
 this._tweenContent('contentPos',0);
 this.setState({contentPos:0,openedLeft:false,openedRight:false});
@@ -274,7 +269,7 @@ styleSwipeout.push([{backgroundColor:this.props.backgroundColor}]);
 }
 
 var limit=-this.state.btnsRightWidth;
-if(posX>0)var limit=this.state.btnsLeftWidth;
+if(posX>0)limit=this.state.btnsLeftWidth;
 
 var styleLeftPos={
 left:{
@@ -314,6 +309,7 @@ ref:'swipeoutContent',
 style:styleContent,
 onLayout:this._onLayout},
 this._panResponder.panHandlers),
+
 this.props.children),
 
 this._renderButtons(this.props.right,isRightVisible,styleRight),
@@ -335,11 +331,10 @@ if(buttons&&isVisible){
 return _react2.default.createElement(_reactNative.View,{style:style},
 buttons.map(this._renderButton));
 
-}else{
+}
 return(
 _react2.default.createElement(_reactNative.View,null));
 
-}
 },
 
 _renderButton:function _renderButton(btn,i){var _this4=this;
@@ -356,6 +351,7 @@ text:btn.text,
 type:btn.type,
 underlayColor:btn.underlayColor,
 width:this.state.btnWidth}));
+
 
 }});
 

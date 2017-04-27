@@ -10,7 +10,7 @@ var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapProps
 Segment=function(_Component){_inherits(Segment,_Component);function Segment(){_classCallCheck(this,Segment);return _possibleConstructorReturn(this,(Segment.__proto__||Object.getPrototypeOf(Segment)).apply(this,arguments));}_createClass(Segment,[{key:'render',value:function render()
 {var _this2=this;
 return(
-_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){return _this2._root=c;}},this.props)));
+_react2.default.createElement(_reactNative.View,_extends({ref:function ref(c){_this2._root=c;}},this.props)));
 
 }}]);return Segment;}(_react.Component);
 

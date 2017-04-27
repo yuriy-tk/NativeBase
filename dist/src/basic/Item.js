@@ -1,14 +1,15 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.Item=undefined;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require('react');var _react2=_interopRequireDefault(_react);
+Object.defineProperty(exports,"__esModule",{value:true});exports.Item=undefined;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
+var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _reactNative=require('react-native');
+var _nativeBaseShoutemTheme=require('native-base-shoutem-theme');
 var _Input=require('./Input');
 var _Label=require('./Label');
 var _Icon=require('./Icon');
 
-var _nativeBaseShoutemTheme=require('native-base-shoutem-theme');
 var _platform=require('../theme/variables/platform');var _platform2=_interopRequireDefault(_platform);
 var _computeProps=require('../Utils/computeProps');var _computeProps2=_interopRequireDefault(_computeProps);
-var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapPropsToStyleNames2=_interopRequireDefault(_mapPropsToStyleNames);
-var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
+var _mapPropsToStyleNames=require('../Utils/mapPropsToStyleNames');var _mapPropsToStyleNames2=_interopRequireDefault(_mapPropsToStyleNames);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
+
 
 Item=function(_Component){_inherits(Item,_Component);
 function Item(props){_classCallCheck(this,Item);var _this=_possibleConstructorReturn(this,(Item.__proto__||Object.getPrototypeOf(Item)).call(this,
@@ -20,19 +21,9 @@ opacAnim:new _reactNative.Animated.Value(1)};return _this;
 
 }_createClass(Item,[{key:'componentDidMount',value:function componentDidMount()
 {
-if(this.inputProps&&this.inputProps.getRef)
+if(this.inputProps&&this.inputProps.getRef){
 this.inputProps.getRef(this._inputRef);
-}},{key:'floatBack',value:function floatBack()
-
-{
-_reactNative.Animated.timing(this.state.topAnim,{
-toValue:18,
-duration:150}).
-start();
-_reactNative.Animated.timing(this.state.opacAnim,{
-toValue:1,
-duration:150}).
-start();
+}
 }},{key:'floatUp',value:function floatUp()
 
 {
@@ -44,42 +35,7 @@ _reactNative.Animated.timing(this.state.opacAnim,{
 toValue:0.7,
 duration:150}).
 start();
-}},{key:'renderLabel',value:function renderLabel(
-
-label,labelProps){
-var newLabel=[];
-if(this.props.floatingLabel){
-if(this.state.isFocused){
-newLabel.push(_react2.default.createElement(_Label.Label,_extends({},
-
-
-labelProps,{
-key:'newFLabel',
-float:true,
-style:_extends({
-fontSize:15,
-lineHeight:30},
-labelProps.style)})));
-
-
-
-this.floatUp();
-}else{
-newLabel.push(label);
-this.floatBack();
-}
-}else{
-newLabel.push(_react2.default.createElement(_Label.Label,_extends({},
-
-
-labelProps,{
-key:'newLabel'})));
-
-
-}
-return newLabel;
 }},{key:'renderChildren',value:function renderChildren()
-
 {var _this2=this;
 var newChildren=[];
 var childrenArray=_react2.default.Children.toArray(this.props.children);
@@ -112,20 +68,16 @@ return item;
 }
 });
 if(this.props.floatingLabel&&icon.length){
-console.log(iconProps,"jhdsh");
+
 newChildren.push(_react2.default.createElement(_Icon.Icon,_extends({key:'i1'},iconProps)));
 newChildren.push(_react2.default.createElement(_reactNative.Animated.View,{key:'float',style:{position:'absolute',left:this.props.last?22:22,right:0,top:this.state.topAnim,opacity:this.state.opacAnim,paddingTop:_reactNative.Platform.OS==='ios'?undefined:undefined,paddingBottom:_reactNative.Platform.OS==='ios'?undefined:12}},_react2.default.createElement(_Label.Label,labelProps,this.renderLabel(label,labelProps))));
 newChildren.push(_react2.default.createElement(_Input.Input,_extends({key:'l2'},inputProps,{onFocus:function onFocus(){_this2.setState({isFocused:true});inputProps.onFocus&&inputProps.onFocus();},onBlur:function onBlur(){!_this2.state.text.length&&_this2.setState({isFocused:false});inputProps.onBlur&&inputProps.onBlur();},onChangeText:function onChangeText(text){_this2.setState({text:text});inputProps.onChangeText&&inputProps.onChangeText(text);}})));
-}else
-if(this.props.floatingLabel){
+}else if(this.props.floatingLabel){
 newChildren.push(_react2.default.createElement(_reactNative.Animated.View,{key:'float',style:{position:'absolute',left:this.props.last?15:0,right:0,top:this.state.topAnim,opacity:this.state.opacAnim,paddingTop:_reactNative.Platform.OS==='ios'?undefined:undefined,paddingBottom:_reactNative.Platform.OS==='ios'?undefined:12}},_react2.default.createElement(_Label.Label,labelProps,this.renderLabel(label,labelProps))));
-newChildren.push(_react2.default.createElement(_Input.Input,_extends({ref:function ref(c){return _this2._inputRef=c;},value:this.state.text,key:'l2'},inputProps,{onFocus:function onFocus(){_this2.setState({isFocused:true});inputProps.onFocus&&inputProps.onFocus();},onBlur:function onBlur(){!_this2.state.text.length&&_this2.setState({isFocused:false});inputProps.onBlur&&inputProps.onBlur();},onChangeText:function onChangeText(text){_this2.setState({text:text});inputProps.onChangeText&&inputProps.onChangeText(text);}})));
-}else
-if(this.props.stackedLabel&&icon.length){
+newChildren.push(_react2.default.createElement(_Input.Input,_extends({ref:function ref(c){_this2._inputRef=c;},value:this.state.text,key:'l2'},inputProps,{onFocus:function onFocus(){_this2.setState({isFocused:true});inputProps.onFocus&&inputProps.onFocus();},onBlur:function onBlur(){!_this2.state.text.length&&_this2.setState({isFocused:false});inputProps.onBlur&&inputProps.onBlur();},onChangeText:function onChangeText(text){_this2.setState({text:text});inputProps.onChangeText&&inputProps.onChangeText(text);}})));
+}else if(this.props.stackedLabel&&icon.length){
 newChildren.push(_react2.default.createElement(_reactNative.View,{key:'s',style:{flexDirection:'row',flex:1,width:_platform2.default.deviceWidth-15}},_react2.default.createElement(_Icon.Icon,_extends({key:'s1'},iconProps)),_react2.default.createElement(_reactNative.View,{style:{flexDirection:'column'}},_react2.default.createElement(_Label.Label,_extends({key:'s2'},labelProps)),_react2.default.createElement(_Input.Input,_extends({key:'s3'},inputProps,{style:{width:_platform2.default.deviceWidth-40}})))));
-
-}else
-{
+}else{
 return this.props.children;
 }
 return newChildren;
@@ -145,10 +97,44 @@ style:this.getInitialStyle().roundedInputGroup};
 
 
 return(0,_computeProps2.default)(this.props,defaultProps);
+}},{key:'renderLabel',value:function renderLabel(
+label,labelProps){
+var newLabel=[];
+if(this.props.floatingLabel){
+if(this.state.isFocused){
+newLabel.push(_react2.default.createElement(_Label.Label,_extends({},
+
+
+labelProps,{
+key:'newFLabel',
+float:true,
+style:_extends({
+fontSize:15,
+lineHeight:30},
+labelProps.style)})));
+
+
+
+this.floatUp();
+}else{
+newLabel.push(label);
+this.floatBack();
+}
+}else{
+newLabel.push(_react2.default.createElement(_Label.Label,_extends({},
+
+
+labelProps,{
+key:'newLabel'})));
+
+
+}
+return newLabel;
 }},{key:'render',value:function render()
+
 {var _this3=this;
 return(
-_react2.default.createElement(_reactNative.TouchableOpacity,_extends({ref:function ref(c){return _this3._root=c;}},this.prepareRootProps(),{activeOpacity:1}),
+_react2.default.createElement(_reactNative.TouchableOpacity,_extends({ref:function ref(c){_this3._root=c;}},this.prepareRootProps(),{activeOpacity:1}),
 this.renderChildren()));
 
 
